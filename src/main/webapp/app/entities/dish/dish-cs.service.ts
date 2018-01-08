@@ -3,35 +3,33 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
 
-import { JhiDateUtils } from 'ng-jhipster';
-
-import { MealCs } from './meal-cs.model';
+import { DishCs } from './dish-cs.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
-export class MealCsService {
+export class DishCsService {
 
-    private resourceUrl = SERVER_API_URL + 'api/meals';
+    private resourceUrl = SERVER_API_URL + 'api/dishes';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: Http) { }
 
-    create(meal: MealCs): Observable<MealCs> {
-        const copy = this.convert(meal);
+    create(dish: DishCs): Observable<DishCs> {
+        const copy = this.convert(dish);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });
     }
 
-    update(meal: MealCs): Observable<MealCs> {
-        const copy = this.convert(meal);
+    update(dish: DishCs): Observable<DishCs> {
+        const copy = this.convert(dish);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });
     }
 
-    find(id: number): Observable<MealCs> {
+    find(id: number): Observable<DishCs> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
@@ -58,22 +56,18 @@ export class MealCsService {
     }
 
     /**
-     * Convert a returned JSON object to MealCs.
+     * Convert a returned JSON object to DishCs.
      */
-    private convertItemFromServer(json: any): MealCs {
-        const entity: MealCs = Object.assign(new MealCs(), json);
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(json.date);
+    private convertItemFromServer(json: any): DishCs {
+        const entity: DishCs = Object.assign(new DishCs(), json);
         return entity;
     }
 
     /**
-     * Convert a MealCs to a JSON which can be sent to the server.
+     * Convert a DishCs to a JSON which can be sent to the server.
      */
-    private convert(meal: MealCs): MealCs {
-        const copy: MealCs = Object.assign({}, meal);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(meal.date);
+    private convert(dish: DishCs): DishCs {
+        const copy: DishCs = Object.assign({}, dish);
         return copy;
     }
 }

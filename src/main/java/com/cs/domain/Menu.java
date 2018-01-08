@@ -5,7 +5,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -24,19 +23,12 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "jhi_date")
-    private LocalDate date;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private WasteMetric wasteMetric;
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "menu_meals",
                joinColumns = @JoinColumn(name="menus_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="meals_id", referencedColumnName="id"))
-    private Set<Meal> meals = new HashSet<>();
+    private Set<Dish> meals = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -47,53 +39,27 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Menu date(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public WasteMetric getWasteMetric() {
-        return wasteMetric;
-    }
-
-    public Menu wasteMetric(WasteMetric wasteMetric) {
-        this.wasteMetric = wasteMetric;
-        return this;
-    }
-
-    public void setWasteMetric(WasteMetric wasteMetric) {
-        this.wasteMetric = wasteMetric;
-    }
-
-    public Set<Meal> getMeals() {
+    public Set<Dish> getMeals() {
         return meals;
     }
 
-    public Menu meals(Set<Meal> meals) {
-        this.meals = meals;
+    public Menu meals(Set<Dish> dishes) {
+        this.meals = dishes;
         return this;
     }
 
-    public Menu addMeals(Meal meal) {
-        this.meals.add(meal);
+    public Menu addMeals(Dish dish) {
+        this.meals.add(dish);
         return this;
     }
 
-    public Menu removeMeals(Meal meal) {
-        this.meals.remove(meal);
+    public Menu removeMeals(Dish dish) {
+        this.meals.remove(dish);
         return this;
     }
 
-    public void setMeals(Set<Meal> meals) {
-        this.meals = meals;
+    public void setMeals(Set<Dish> dishes) {
+        this.meals = dishes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -121,7 +87,6 @@ public class Menu implements Serializable {
     public String toString() {
         return "Menu{" +
             "id=" + getId() +
-            ", date='" + getDate() + "'" +
             "}";
     }
 }

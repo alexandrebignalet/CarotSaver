@@ -6,36 +6,36 @@ import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { MenuCs } from './menu-cs.model';
-import { MenuCsPopupService } from './menu-cs-popup.service';
-import { MenuCsService } from './menu-cs.service';
-import { DishCs, DishCsService } from '../dish';
+import { DishCs } from './dish-cs.model';
+import { DishCsPopupService } from './dish-cs-popup.service';
+import { DishCsService } from './dish-cs.service';
+import { FoodCategoryCs, FoodCategoryCsService } from '../food-category';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
-    selector: 'jhi-menu-cs-dialog',
-    templateUrl: './menu-cs-dialog.component.html'
+    selector: 'jhi-dish-cs-dialog',
+    templateUrl: './dish-cs-dialog.component.html'
 })
-export class MenuCsDialogComponent implements OnInit {
+export class DishCsDialogComponent implements OnInit {
 
-    menu: MenuCs;
+    dish: DishCs;
     isSaving: boolean;
 
-    dishes: DishCs[];
+    foodcategories: FoodCategoryCs[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
-        private menuService: MenuCsService,
         private dishService: DishCsService,
+        private foodCategoryService: FoodCategoryCsService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.dishService.query()
-            .subscribe((res: ResponseWrapper) => { this.dishes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.foodCategoryService.query()
+            .subscribe((res: ResponseWrapper) => { this.foodcategories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -44,22 +44,22 @@ export class MenuCsDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.menu.id !== undefined) {
+        if (this.dish.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.menuService.update(this.menu));
+                this.dishService.update(this.dish));
         } else {
             this.subscribeToSaveResponse(
-                this.menuService.create(this.menu));
+                this.dishService.create(this.dish));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<MenuCs>) {
-        result.subscribe((res: MenuCs) =>
+    private subscribeToSaveResponse(result: Observable<DishCs>) {
+        result.subscribe((res: DishCs) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: MenuCs) {
-        this.eventManager.broadcast({ name: 'menuListModification', content: 'OK'});
+    private onSaveSuccess(result: DishCs) {
+        this.eventManager.broadcast({ name: 'dishListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -72,7 +72,7 @@ export class MenuCsDialogComponent implements OnInit {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    trackDishById(index: number, item: DishCs) {
+    trackFoodCategoryById(index: number, item: FoodCategoryCs) {
         return item.id;
     }
 
@@ -89,26 +89,26 @@ export class MenuCsDialogComponent implements OnInit {
 }
 
 @Component({
-    selector: 'jhi-menu-cs-popup',
+    selector: 'jhi-dish-cs-popup',
     template: ''
 })
-export class MenuCsPopupComponent implements OnInit, OnDestroy {
+export class DishCsPopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private menuPopupService: MenuCsPopupService
+        private dishPopupService: DishCsPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.menuPopupService
-                    .open(MenuCsDialogComponent as Component, params['id']);
+                this.dishPopupService
+                    .open(DishCsDialogComponent as Component, params['id']);
             } else {
-                this.menuPopupService
-                    .open(MenuCsDialogComponent as Component);
+                this.dishPopupService
+                    .open(DishCsDialogComponent as Component);
             }
         });
     }

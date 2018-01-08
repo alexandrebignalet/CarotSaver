@@ -1,18 +1,12 @@
 import { BaseEntity } from './../../shared';
 
-export const enum MealType {
-    'ENTREE',
-    'PRINCIPAL',
-    'DESERT',
-    'OTHER'
-}
-
 export class MealCs implements BaseEntity {
     constructor(
         public id?: number,
-        public name?: string,
-        public type?: MealType,
-        public foodCategories?: BaseEntity[],
+        public date?: any,
+        public nbPresent?: number,
+        public menu?: BaseEntity,
+        public wasteMetric?: BaseEntity,
     ) {
     }
 }

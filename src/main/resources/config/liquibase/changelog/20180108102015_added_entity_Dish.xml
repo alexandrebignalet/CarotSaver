@@ -15,27 +15,34 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Meal.
+        Added the entity Dish.
     -->
-    <changeSet id="20180108090452-1" author="jhipster">
-        <createTable tableName="meal">
+    <changeSet id="20180108102015-1" author="jhipster">
+        <createTable tableName="dish">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="jhi_date" type="date">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="nb_present" type="integer">
+            <column name="jhi_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="menu_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>            <column name="waste_metric_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="dish_food_categories">
+            <column name="food_categories_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dishes_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="dishes_id, food_categories_id" tableName="dish_food_categories"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

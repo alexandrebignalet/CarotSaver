@@ -5,11 +5,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
 import java.util.Objects;
-
-import com.cs.domain.enumeration.MealType;
 
 /**
  * A Meal.
@@ -25,19 +22,19 @@ public class Meal implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "jhi_date")
+    private LocalDate date;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "jhi_type")
-    private MealType type;
+    @Column(name = "nb_present")
+    private Integer nbPresent;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "meal_food_categories",
-               joinColumns = @JoinColumn(name="meals_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="food_categories_id", referencedColumnName="id"))
-    private Set<FoodCategory> foodCategories = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Menu menu;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private WasteMetric wasteMetric;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -48,53 +45,56 @@ public class Meal implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public Meal name(String name) {
-        this.name = name;
+    public Meal date(LocalDate date) {
+        this.date = date;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public MealType getType() {
-        return type;
+    public Integer getNbPresent() {
+        return nbPresent;
     }
 
-    public Meal type(MealType type) {
-        this.type = type;
+    public Meal nbPresent(Integer nbPresent) {
+        this.nbPresent = nbPresent;
         return this;
     }
 
-    public void setType(MealType type) {
-        this.type = type;
+    public void setNbPresent(Integer nbPresent) {
+        this.nbPresent = nbPresent;
     }
 
-    public Set<FoodCategory> getFoodCategories() {
-        return foodCategories;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public Meal foodCategories(Set<FoodCategory> foodCategories) {
-        this.foodCategories = foodCategories;
+    public Meal menu(Menu menu) {
+        this.menu = menu;
         return this;
     }
 
-    public Meal addFoodCategories(FoodCategory foodCategory) {
-        this.foodCategories.add(foodCategory);
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public WasteMetric getWasteMetric() {
+        return wasteMetric;
+    }
+
+    public Meal wasteMetric(WasteMetric wasteMetric) {
+        this.wasteMetric = wasteMetric;
         return this;
     }
 
-    public Meal removeFoodCategories(FoodCategory foodCategory) {
-        this.foodCategories.remove(foodCategory);
-        return this;
-    }
-
-    public void setFoodCategories(Set<FoodCategory> foodCategories) {
-        this.foodCategories = foodCategories;
+    public void setWasteMetric(WasteMetric wasteMetric) {
+        this.wasteMetric = wasteMetric;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -122,8 +122,8 @@ public class Meal implements Serializable {
     public String toString() {
         return "Meal{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", type='" + getType() + "'" +
+            ", date='" + getDate() + "'" +
+            ", nbPresent='" + getNbPresent() + "'" +
             "}";
     }
 }

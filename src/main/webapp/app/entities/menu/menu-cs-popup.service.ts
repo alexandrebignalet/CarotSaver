@@ -26,13 +26,6 @@ export class MenuCsPopupService {
 
             if (id) {
                 this.menuService.find(id).subscribe((menu) => {
-                    if (menu.date) {
-                        menu.date = {
-                            year: menu.date.getFullYear(),
-                            month: menu.date.getMonth() + 1,
-                            day: menu.date.getDate()
-                        };
-                    }
                     this.ngbModalRef = this.menuModalRef(component, menu);
                     resolve(this.ngbModalRef);
                 });

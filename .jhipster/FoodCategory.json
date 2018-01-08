@@ -12,5 +12,6 @@
     "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
+    "microserviceName": "CSaver",
     "angularJSSuffix": "cs"
 }

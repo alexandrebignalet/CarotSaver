@@ -2,23 +2,30 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "foodCategories",
-            "otherEntityName": "foodCategory",
+            "relationshipType": "one-to-one",
+            "relationshipName": "menu",
+            "otherEntityName": "menu",
             "otherEntityField": "id",
-            "ownerSide": true
+            "ownerSide": true,
+            "otherEntityRelationshipName": "meal"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "wasteMetric",
+            "otherEntityName": "wasteMetric",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "meal"
         }
     ],
     "fields": [
         {
-            "fieldName": "name",
-            "fieldType": "String"
+            "fieldName": "date",
+            "fieldType": "LocalDate"
         },
         {
-            "fieldName": "type",
-            "fieldType": "MealType",
-            "fieldValues": "ENTREE,PRINCIPAL,DESERT,OTHER"
+            "fieldName": "nbPresent",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20180108090452",
@@ -26,5 +33,6 @@
     "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
+    "microserviceName": "CSaver",
     "angularJSSuffix": "cs"
 }

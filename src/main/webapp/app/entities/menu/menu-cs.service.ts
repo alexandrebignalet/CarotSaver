@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
 
-import { JhiDateUtils } from 'ng-jhipster';
-
 import { MenuCs } from './menu-cs.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
@@ -13,7 +11,7 @@ export class MenuCsService {
 
     private resourceUrl = SERVER_API_URL + 'api/menus';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: Http) { }
 
     create(menu: MenuCs): Observable<MenuCs> {
         const copy = this.convert(menu);
@@ -62,8 +60,6 @@ export class MenuCsService {
      */
     private convertItemFromServer(json: any): MenuCs {
         const entity: MenuCs = Object.assign(new MenuCs(), json);
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(json.date);
         return entity;
     }
 
@@ -72,8 +68,6 @@ export class MenuCsService {
      */
     private convert(menu: MenuCs): MenuCs {
         const copy: MenuCs = Object.assign({}, menu);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(menu.date);
         return copy;
     }
 }

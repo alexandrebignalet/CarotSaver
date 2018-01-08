@@ -1,17 +1,17 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { MealCs } from './meal-cs.model';
-import { MealCsService } from './meal-cs.service';
+import { DishCs } from './dish-cs.model';
+import { DishCsService } from './dish-cs.service';
 
 @Injectable()
-export class MealCsPopupService {
+export class DishCsPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private mealService: MealCsService
+        private dishService: DishCsService
 
     ) {
         this.ngbModalRef = null;
@@ -25,30 +25,23 @@ export class MealCsPopupService {
             }
 
             if (id) {
-                this.mealService.find(id).subscribe((meal) => {
-                    if (meal.date) {
-                        meal.date = {
-                            year: meal.date.getFullYear(),
-                            month: meal.date.getMonth() + 1,
-                            day: meal.date.getDate()
-                        };
-                    }
-                    this.ngbModalRef = this.mealModalRef(component, meal);
+                this.dishService.find(id).subscribe((dish) => {
+                    this.ngbModalRef = this.dishModalRef(component, dish);
                     resolve(this.ngbModalRef);
                 });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.mealModalRef(component, new MealCs());
+                    this.ngbModalRef = this.dishModalRef(component, new DishCs());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
         });
     }
 
-    mealModalRef(component: Component, meal: MealCs): NgbModalRef {
+    dishModalRef(component: Component, dish: DishCs): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-        modalRef.componentInstance.meal = meal;
+        modalRef.componentInstance.dish = dish;
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.ngbModalRef = null;

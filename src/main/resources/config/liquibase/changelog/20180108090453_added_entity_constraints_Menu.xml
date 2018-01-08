@@ -8,12 +8,6 @@
     -->
     <changeSet id="20180108090453-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="waste_metric_id"
-                                 baseTableName="menu"
-                                 constraintName="fk_menu_waste_metric_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="waste_metric"/>
-
         <addForeignKeyConstraint baseColumnNames="menus_id"
                                  baseTableName="menu_meals"
                                  constraintName="fk_menu_meals_menus_id"
@@ -23,7 +17,7 @@
                                  baseTableName="menu_meals"
                                  constraintName="fk_menu_meals_meals_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="meal"/>
+                                 referencedTableName="dish"/>
         
     </changeSet>
 </databaseChangeLog>

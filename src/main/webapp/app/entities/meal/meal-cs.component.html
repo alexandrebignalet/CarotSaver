@@ -17,21 +17,27 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>Name</span></th>
-            <th><span>Type</span></th>
-            <th><span>Food Categories</span></th>
+            <th><span>Date</span></th>
+            <th><span>Nb Present</span></th>
+            <th><span>Menu</span></th>
+            <th><span>Waste Metric</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let meal of meals ;trackBy: trackId">
                 <td><a [routerLink]="['../meal-cs', meal.id ]">{{meal.id}}</a></td>
-                <td>{{meal.name}}</td>
-                <td>{{meal.type}}</td>
+                <td>{{meal.date | date:'mediumDate'}}</td>
+                <td>{{meal.nbPresent}}</td>
                 <td>
-                    <span *ngFor="let foodCategories of meal.foodCategories; let last = last">
-                            <a class="form-control-static" [routerLink]="['../food-category-cs', foodCategories?.id ]">{{foodCategories.id}}</a>{{last ? '' : ', '}}
-                        </span>
+                    <div *ngIf="meal.menu">
+                        <a [routerLink]="['../menu-cs', meal.menu?.id ]" >{{meal.menu?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="meal.wasteMetric">
+                        <a [routerLink]="['../waste-metric-cs', meal.wasteMetric?.id ]" >{{meal.wasteMetric?.id}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

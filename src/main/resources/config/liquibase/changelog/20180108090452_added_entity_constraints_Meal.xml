@@ -8,16 +8,17 @@
     -->
     <changeSet id="20180108090452-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="meals_id"
-                                 baseTableName="meal_food_categories"
-                                 constraintName="fk_meal_food_categories_meals_id"
+        <addForeignKeyConstraint baseColumnNames="menu_id"
+                                 baseTableName="meal"
+                                 constraintName="fk_meal_menu_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="meal"/>
-        <addForeignKeyConstraint baseColumnNames="food_categories_id"
-                                 baseTableName="meal_food_categories"
-                                 constraintName="fk_meal_food_categories_food_categories_id"
+                                 referencedTableName="menu"/>
+
+        <addForeignKeyConstraint baseColumnNames="waste_metric_id"
+                                 baseTableName="meal"
+                                 constraintName="fk_meal_waste_metric_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="food_category"/>
-        
+                                 referencedTableName="waste_metric"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -22,8 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,9 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CarotSaverApp.class)
 public class MenuResourceIntTest {
-
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private MenuRepository menuRepository;
@@ -82,8 +77,7 @@ public class MenuResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Menu createEntity(EntityManager em) {
-        Menu menu = new Menu()
-            .date(DEFAULT_DATE);
+        Menu menu = new Menu();
         return menu;
     }
 
@@ -107,7 +101,6 @@ public class MenuResourceIntTest {
         List<Menu> menuList = menuRepository.findAll();
         assertThat(menuList).hasSize(databaseSizeBeforeCreate + 1);
         Menu testMenu = menuList.get(menuList.size() - 1);
-        assertThat(testMenu.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -139,8 +132,7 @@ public class MenuResourceIntTest {
         restMenuMockMvc.perform(get("/api/menus?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(menu.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(menu.getId().intValue())));
     }
 
     @Test
@@ -153,8 +145,7 @@ public class MenuResourceIntTest {
         restMenuMockMvc.perform(get("/api/menus/{id}", menu.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(menu.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
+            .andExpect(jsonPath("$.id").value(menu.getId().intValue()));
     }
 
     @Test
@@ -175,8 +166,6 @@ public class MenuResourceIntTest {
 
         // Update the menu
         Menu updatedMenu = menuRepository.findOne(menu.getId());
-        updatedMenu
-            .date(UPDATED_DATE);
 
         restMenuMockMvc.perform(put("/api/menus")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -187,7 +176,6 @@ public class MenuResourceIntTest {
         List<Menu> menuList = menuRepository.findAll();
         assertThat(menuList).hasSize(databaseSizeBeforeUpdate);
         Menu testMenu = menuList.get(menuList.size() - 1);
-        assertThat(testMenu.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test

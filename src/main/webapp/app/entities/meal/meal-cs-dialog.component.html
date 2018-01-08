@@ -13,24 +13,33 @@
                    [(ngModel)]="meal.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="meal.name"  />
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="meal.date"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_type">Type</label>
-            <select class="form-control" name="type" [(ngModel)]="meal.type" id="field_type" >
-                <option value="ENTREE">ENTREE</option>
-                <option value="PRINCIPAL">PRINCIPAL</option>
-                <option value="DESERT">DESERT</option>
-                <option value="OTHER">OTHER</option>
-            </select>
+            <label class="form-control-label" for="field_nbPresent">Nb Present</label>
+            <input type="number" class="form-control" name="nbPresent" id="field_nbPresent"
+                [(ngModel)]="meal.nbPresent"  />
         </div>
 
         <div class="form-group">
-            <label for="field_foodCategories">Food Categories</label>
-            <select class="form-control" id="field_foodCategories" multiple name="foodCategories" [(ngModel)]="meal.foodCategories">
-                <option [ngValue]="getSelected(meal.foodCategories, foodCategoryOption)" *ngFor="let foodCategoryOption of foodcategories; trackBy: trackFoodCategoryById">{{foodCategoryOption.id}}</option>
+            <label class="form-control-label" for="field_menu">Menu</label>
+            <select class="form-control" id="field_menu" name="menu" [(ngModel)]="meal.menu">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="menuOption.id === meal.menu?.id ? meal.menu : menuOption" *ngFor="let menuOption of menus; trackBy: trackMenuById">{{menuOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_wasteMetric">Waste Metric</label>
+            <select class="form-control" id="field_wasteMetric" name="wasteMetric" [(ngModel)]="meal.wasteMetric">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="wasteMetricOption.id === meal.wasteMetric?.id ? meal.wasteMetric : wasteMetricOption" *ngFor="let wasteMetricOption of wastemetrics; trackBy: trackWasteMetricById">{{wasteMetricOption.id}}</option>
             </select>
         </div>
     </div>

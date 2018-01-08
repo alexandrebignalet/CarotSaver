@@ -4,20 +4,10 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span>Date</span></dt>
-        <dd>
-            <span>{{menu.date | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Waste Metric</span></dt>
-        <dd>
-            <div *ngIf="menu.wasteMetric">
-                <a [routerLink]="['/waste-metric-cs', menu.wasteMetric?.id]">{{menu.wasteMetric?.id}}</a>
-            </div>
-        </dd>
         <dt><span>Meals</span></dt>
         <dd>
             <span *ngFor="let meals of menu.meals; let last = last">
-                <a [routerLink]="['/meal-cs', meals?.id ]">{{meals.id}}</a>{{last ? '' : ', '}}
+                <a [routerLink]="['/dish-cs', meals?.id ]">{{meals.id}}</a>{{last ? '' : ', '}}
             </span>
         </dd>
     </dl>

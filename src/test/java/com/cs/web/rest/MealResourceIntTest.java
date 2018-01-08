@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +31,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.cs.domain.enumeration.MealType;
 /**
  * Test class for the MealResource REST controller.
  *
@@ -39,11 +40,11 @@ import com.cs.domain.enumeration.MealType;
 @SpringBootTest(classes = CarotSaverApp.class)
 public class MealResourceIntTest {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final MealType DEFAULT_TYPE = MealType.ENTREE;
-    private static final MealType UPDATED_TYPE = MealType.PRINCIPAL;
+    private static final Integer DEFAULT_NB_PRESENT = 1;
+    private static final Integer UPDATED_NB_PRESENT = 2;
 
     @Autowired
     private MealRepository mealRepository;
@@ -85,8 +86,8 @@ public class MealResourceIntTest {
      */
     public static Meal createEntity(EntityManager em) {
         Meal meal = new Meal()
-            .name(DEFAULT_NAME)
-            .type(DEFAULT_TYPE);
+            .date(DEFAULT_DATE)
+            .nbPresent(DEFAULT_NB_PRESENT);
         return meal;
     }
 
@@ -110,8 +111,8 @@ public class MealResourceIntTest {
         List<Meal> mealList = mealRepository.findAll();
         assertThat(mealList).hasSize(databaseSizeBeforeCreate + 1);
         Meal testMeal = mealList.get(mealList.size() - 1);
-        assertThat(testMeal.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testMeal.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testMeal.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testMeal.getNbPresent()).isEqualTo(DEFAULT_NB_PRESENT);
     }
 
     @Test
@@ -144,8 +145,8 @@ public class MealResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(meal.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].nbPresent").value(hasItem(DEFAULT_NB_PRESENT)));
     }
 
     @Test
@@ -159,8 +160,8 @@ public class MealResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(meal.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.nbPresent").value(DEFAULT_NB_PRESENT));
     }
 
     @Test
@@ -182,8 +183,8 @@ public class MealResourceIntTest {
         // Update the meal
         Meal updatedMeal = mealRepository.findOne(meal.getId());
         updatedMeal
-            .name(UPDATED_NAME)
-            .type(UPDATED_TYPE);
+            .date(UPDATED_DATE)
+            .nbPresent(UPDATED_NB_PRESENT);
 
         restMealMockMvc.perform(put("/api/meals")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -194,8 +195,8 @@ public class MealResourceIntTest {
         List<Meal> mealList = mealRepository.findAll();
         assertThat(mealList).hasSize(databaseSizeBeforeUpdate);
         Meal testMeal = mealList.get(mealList.size() - 1);
-        assertThat(testMeal.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testMeal.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testMeal.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testMeal.getNbPresent()).isEqualTo(UPDATED_NB_PRESENT);
     }
 
     @Test

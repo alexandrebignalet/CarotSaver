@@ -46,7 +46,7 @@ public class MealServiceImpl implements MealService{
     @Transactional(readOnly = true)
     public List<Meal> findAll() {
         log.debug("Request to get all Meals");
-        return mealRepository.findAllWithEagerRelationships();
+        return mealRepository.findAll();
     }
 
     /**
@@ -59,7 +59,7 @@ public class MealServiceImpl implements MealService{
     @Transactional(readOnly = true)
     public Meal findOne(Long id) {
         log.debug("Request to get Meal : {}", id);
-        return mealRepository.findOneWithEagerRelationships(id);
+        return mealRepository.findOne(id);
     }
 
     /**

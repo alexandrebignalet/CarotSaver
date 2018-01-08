@@ -10,9 +10,11 @@
     <include file="config/liquibase/changelog/20180108090453_added_entity_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180108090454_added_entity_WasteMetric.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180108090455_added_entity_DishServe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180108102015_added_entity_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180108090452_added_entity_constraints_Meal.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180108090453_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180108090455_added_entity_constraints_DishServe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180108102015_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
