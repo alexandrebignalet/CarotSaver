@@ -32,7 +32,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
         <createTable tableName="dish_food_categories">
             <column name="food_categories_id" type="bigint">
                 <constraints nullable="false"/>
@@ -43,7 +43,7 @@
         </createTable>
 
         <addPrimaryKey columnNames="dishes_id, food_categories_id" tableName="dish_food_categories"/>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

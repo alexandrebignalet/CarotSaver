@@ -1,0 +1,97 @@
+id;name;jhi_type
+1;Sauce blanche;OTHER
+2;Soupe de potiron;ENTREE
+3;Soupe à l'oignon;ENTREE
+4;Potage;ENTREE
+5;Cordon de dinde;PRINCIPAL
+6;Risotto;PRINCIPAL
+7;Fromage blanc nature;PRINCIPAL
+8;Kiwi;PRINCIPAL
+9;Parmentier de canard;PRINCIPAL
+10;Pommes de terre;PRINCIPAL
+11;St Paulin;OTHER
+12;Galette des rois;DESSERT
+13;Betteraves vinaigrette;ENTREE
+14;Boeuf bourguignon;PRINCIPAL
+15;Coquillettes au beurre;PRINCIPAL
+16;Soufflé au fromage;ENTREE
+17;Haricots verts persillés;PRINCIPAL
+18;Soupe de légumes;ENTREE
+19;Rôti de porc;PRINCIPAL
+20;Courgettes béchamel;PRINCIPAL
+21;Yaourt;DESSERT
+22;Petits suisses;DESSERT
+23;Poisson pané / citron;PRINCIPAL
+24;Carottes et navets poêlés;PRINCIPAL
+25;Fromage;DESSERT
+26;Omelette aux pommes de terre;PRINCIPAL
+27;Epinards à la crème;PRINCIPAL
+28;Camembert;OTHER
+29;Clémentine;DESSERT
+30;Soupe de légumes;ENTREE
+31;Pizza;ENTREE
+32;Crème dessert à la vanille;DESSERT
+33;Oeuf mayonaise;ENTREE
+34;Filet de poisson sauce estragon;PRINCIPAL
+35;Boulgour;PRINCIPAL
+36;Yaourt nature bio;DESSERT
+37;Compote de poire;DESSERT
+38;Endives gratinées au jambon;PRINCIPAL
+39;Salade verte;ENTREE
+40;Fruits frais;DESSERT
+41;Sauté d'agneau au romarin;PRINCIPAL
+42;Tome;OTHER
+43;Sardines au citron;ENTREE
+44;Salsifis à la tomate;ENTREE
+45;Petits suisses aux fruits;DESSERT
+46;Chou rouge en salade;ENTREE
+47;Rôti de dinde saint hubert;PRINCIPAL
+48;Haricots verts persillés;PRINCIPAL
+49;Flan pâtissier;DESSERT
+50;Concombre et maïs en salade;ENTREE
+51;Poulet au citron;PRINCIPAL
+52;Gratin de chou fleur;PRINCIPAL
+53;Comté;OTHER
+54;Compote de pomme / framboise;DESSERT
+55;Palette 1 / 2 sel;PRINCIPAL
+56;Frites;PRINCIPAL
+57;Croix de Malte;PRINCIPAL
+58;Crème au chocolat;DESSERT
+59;Saucisson sec;ENTREE
+60;Filet de poisson catalane;PRINCIPAL
+61;Purée de potiron;ENTREE
+62;Petits suisses nature / sucre;DESSERT
+63;Orange;DESSERT
+64;Cuisse de poulet à la crème;PRINCIPAL
+65;Pommes vapeur persillées;PRINCIPAL
+66;Emmental;OTHER
+67;Tarte au fromage;DESSERT
+68;Chipolatas;PRINCIPAL
+69;Petits pois au jus;PRINCIPAL
+70;Fromage blanc;DESSERT
+71;Compote de pommes à la vanille;DESSERT
+72;Taboulé;ENTREE
+73;Carottes braisées;PRINCIPAL
+74;Cantal;OTHER
+75;Poire au sirop;DESSERT
+76;Sauté de boeuf aux olives;PRINCIPAL
+77;Riz créole;PRINCIPAL
+78;Yaourt aromatisé;DESSERT
+79;Banane;DESSERT
+80;Carottes rapées;ENTREE
+81;Filet de poisson sauce à l'aneth;PRINCIPAL
+82;Purée de courgettes;PRINCIPAL
+83;Rondelé;ENTREE
+84;Viennois chocolat;DESSERT
+85;Lapin chasseur;PRINCIPAL
+86;Torsades;PRINCIPAL
+87;St Nectaire;OTHER
+88;Pomme;DESSERT
+89;Salade de riz;ENTREE
+90;Rôti de porc au miel;PRINCIPAL
+91;Haricots beurre;PRINCIPAL
+92;Edam;OTHER
+93;Flan caramel;DESSERT
+94;Pommes de terre piémontaise;PRINCIPAL
+95;Paupiette de veau;PRINCIPAL
+96;Chou-fleur béchamel;PRINCIPAL
