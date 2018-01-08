@@ -5,7 +5,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -14,16 +13,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "meal")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Meal implements Serializable {
+public class Meal extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "jhi_date")
-    private LocalDate date;
 
     @Column(name = "nb_present")
     private Integer nbPresent;
@@ -43,19 +39,6 @@ public class Meal implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Meal date(LocalDate date) {
-        this.date = date;
-        return this;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public Integer getNbPresent() {
@@ -122,7 +105,6 @@ public class Meal implements Serializable {
     public String toString() {
         return "Meal{" +
             "id=" + getId() +
-            ", date='" + getDate() + "'" +
             ", nbPresent='" + getNbPresent() + "'" +
             "}";
     }

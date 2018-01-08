@@ -2,24 +2,22 @@ entity FoodCategory {
 	name String
 }
 
-enum MealType {
+enum DishType {
     ENTREE, PRINCIPAL, DESERT, OTHER
 }
 
 
-entity Meal {
+entity Dish {
 	name String
-    type MealType
-    
+    type DishType
 }
 
 relationship ManyToMany {
-	Meal{foodCategories} to FoodCategory,
-    Menu{meals} to Meal
+	Dish{foodCategories} to FoodCategory,
+    Menu{meals} to Dish
 }
 
 entity Menu {
-	date LocalDate,
 }
 
 entity WasteMetric {
@@ -28,13 +26,13 @@ entity WasteMetric {
     other Long
 }
 
-entity DishServe {
+entity Meal {
 	nbPresent Integer,
 }
 
 relationship OneToOne {
-	DishServe{menu} to Menu,
-    Menu{wasteMetric} to WasteMetric
+	Meal{menu} to Menu,
+    Meal{wasteMetric} to WasteMetric
 }
 
 

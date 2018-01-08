@@ -17,7 +17,7 @@
         },
         {
             "fieldName": "type",
-            "fieldType": "MealType",
+            "fieldType": "DishType",
             "fieldValues": "ENTREE,PRINCIPAL,DESERT,OTHER"
         }
     ],
@@ -26,6 +26,5 @@
     "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
-    "microserviceName": "CSaver",
     "angularJSSuffix": "cs"
 }

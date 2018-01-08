@@ -17,7 +17,6 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>Date</span></th>
             <th><span>Nb Present</span></th>
             <th><span>Menu</span></th>
             <th><span>Waste Metric</span></th>
@@ -27,7 +26,6 @@
             <tbody>
             <tr *ngFor="let meal of meals ;trackBy: trackId">
                 <td><a [routerLink]="['../meal-cs', meal.id ]">{{meal.id}}</a></td>
-                <td>{{meal.date | date:'mediumDate'}}</td>
                 <td>{{meal.nbPresent}}</td>
                 <td>
                     <div *ngIf="meal.menu">

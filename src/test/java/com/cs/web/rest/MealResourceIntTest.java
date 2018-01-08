@@ -22,8 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,9 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CarotSaverApp.class)
 public class MealResourceIntTest {
-
-    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final Integer DEFAULT_NB_PRESENT = 1;
     private static final Integer UPDATED_NB_PRESENT = 2;
@@ -86,7 +81,6 @@ public class MealResourceIntTest {
      */
     public static Meal createEntity(EntityManager em) {
         Meal meal = new Meal()
-            .date(DEFAULT_DATE)
             .nbPresent(DEFAULT_NB_PRESENT);
         return meal;
     }
@@ -111,7 +105,6 @@ public class MealResourceIntTest {
         List<Meal> mealList = mealRepository.findAll();
         assertThat(mealList).hasSize(databaseSizeBeforeCreate + 1);
         Meal testMeal = mealList.get(mealList.size() - 1);
-        assertThat(testMeal.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testMeal.getNbPresent()).isEqualTo(DEFAULT_NB_PRESENT);
     }
 
@@ -145,7 +138,6 @@ public class MealResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(meal.getId().intValue())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].nbPresent").value(hasItem(DEFAULT_NB_PRESENT)));
     }
 
@@ -160,7 +152,6 @@ public class MealResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(meal.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.nbPresent").value(DEFAULT_NB_PRESENT));
     }
 
@@ -183,7 +174,6 @@ public class MealResourceIntTest {
         // Update the meal
         Meal updatedMeal = mealRepository.findOne(meal.getId());
         updatedMeal
-            .date(UPDATED_DATE)
             .nbPresent(UPDATED_NB_PRESENT);
 
         restMealMockMvc.perform(put("/api/meals")
@@ -195,7 +185,6 @@ public class MealResourceIntTest {
         List<Meal> mealList = mealRepository.findAll();
         assertThat(mealList).hasSize(databaseSizeBeforeUpdate);
         Meal testMeal = mealList.get(mealList.size() - 1);
-        assertThat(testMeal.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testMeal.getNbPresent()).isEqualTo(UPDATED_NB_PRESENT);
     }
 
