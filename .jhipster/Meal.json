@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "foodCategories",
+            "otherEntityName": "foodCategory",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "MealType",
+            "fieldValues": "ENTREE,PRINCIPAL,DESERT,OTHER"
+        }
+    ],
+    "changelogDate": "20180108090452",
+    "entityTableName": "meal",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "cs"
+}

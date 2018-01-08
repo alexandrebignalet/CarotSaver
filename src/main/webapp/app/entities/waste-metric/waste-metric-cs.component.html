@@ -1,0 +1,60 @@
+<div>
+    <h2>
+        <span>Waste Metrics</span>
+        <button class="btn btn-primary float-right jh-create-entity create-waste-metric-cs" [routerLink]="['/', { outlets: { popup: ['waste-metric-cs-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Waste Metric
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="wasteMetrics">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Plastic</span></th>
+            <th><span>Green</span></th>
+            <th><span>Other</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let wasteMetric of wasteMetrics ;trackBy: trackId">
+                <td><a [routerLink]="['../waste-metric-cs', wasteMetric.id ]">{{wasteMetric.id}}</a></td>
+                <td>{{wasteMetric.plastic}}</td>
+                <td>{{wasteMetric.green}}</td>
+                <td>{{wasteMetric.other}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../waste-metric-cs', wasteMetric.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'waste-metric-cs/'+ wasteMetric.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'waste-metric-cs/'+ wasteMetric.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

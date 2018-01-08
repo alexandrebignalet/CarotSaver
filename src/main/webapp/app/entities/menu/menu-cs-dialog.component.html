@@ -1,0 +1,48 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMenuLabel">Create or edit a Menu</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!menu.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="menu.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="menu.date"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_wasteMetric">Waste Metric</label>
+            <select class="form-control" id="field_wasteMetric" name="wasteMetric" [(ngModel)]="menu.wasteMetric">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="wasteMetricOption.id === menu.wasteMetric?.id ? menu.wasteMetric : wasteMetricOption" *ngFor="let wasteMetricOption of wastemetrics; trackBy: trackWasteMetricById">{{wasteMetricOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_meals">Meals</label>
+            <select class="form-control" id="field_meals" multiple name="meals" [(ngModel)]="menu.meals">
+                <option [ngValue]="getSelected(menu.meals, mealOption)" *ngFor="let mealOption of meals; trackBy: trackMealById">{{mealOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span>Menus</span>
+        <button class="btn btn-primary float-right jh-create-entity create-menu-cs" [routerLink]="['/', { outlets: { popup: ['menu-cs-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Menu
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="menus">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Date</span></th>
+            <th><span>Waste Metric</span></th>
+            <th><span>Meals</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let menu of menus ;trackBy: trackId">
+                <td><a [routerLink]="['../menu-cs', menu.id ]">{{menu.id}}</a></td>
+                <td>{{menu.date | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="menu.wasteMetric">
+                        <a [routerLink]="['../waste-metric-cs', menu.wasteMetric?.id ]" >{{menu.wasteMetric?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let meals of menu.meals; let last = last">
+                            <a class="form-control-static" [routerLink]="['../meal-cs', meals?.id ]">{{meals.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../menu-cs', menu.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'menu-cs/'+ menu.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'menu-cs/'+ menu.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

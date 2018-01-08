@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "plastic",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "green",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "other",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20180108090454",
+    "entityTableName": "waste_metric",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "cs"
+}

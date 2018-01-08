@@ -1,0 +1,44 @@
+entity FoodCategory {
+	name String
+}
+
+enum MealType {
+    ENTREE, PRINCIPAL, DESERT, OTHER
+}
+
+
+entity Meal {
+	name String
+    type MealType
+    
+}
+
+relationship ManyToMany {
+	Meal{foodCategories} to FoodCategory,
+    Menu{meals} to Meal
+}
+
+entity Menu {
+	date LocalDate,
+}
+
+entity WasteMetric {
+	plastic Long,
+    green Long,
+    other Long
+}
+
+entity DishServe {
+	nbPresent Integer,
+}
+
+relationship OneToOne {
+	DishServe{menu} to Menu,
+    Menu{wasteMetric} to WasteMetric
+}
+
+
+// Set service options to all except few
+service * with serviceImpl
+// Set an angular suffix
+angularSuffix * with cs
