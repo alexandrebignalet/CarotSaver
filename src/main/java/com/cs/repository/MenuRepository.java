@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
-    @Query("select distinct menu from Menu menu left join fetch menu.meals")
+    @Query("select distinct menu from Menu menu left join fetch menu.dishes")
     List<Menu> findAllWithEagerRelationships();
 
-    @Query("select menu from Menu menu left join fetch menu.meals where menu.id =:id")
+    @Query("select menu from Menu menu left join fetch menu.dishes where menu.id =:id")
     Menu findOneWithEagerRelationships(@Param("id") Long id);
 
 }

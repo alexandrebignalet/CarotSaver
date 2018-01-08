@@ -1,3 +1,48 @@
+<h2>Dashboard menu</h2>
+<div class="row p-b">
+    <div class="col-3">
+        <button type="button" class="btn btn-outline-success">
+            Créer un menu
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-8">
+        <div *ngIf="!menus || menus.length == 0">
+            Zero
+        </div>
+        <div *ngIf="menus && menus.length > 0">
+            <table class="table table">
+                <thead>
+                <tr>
+                    <th>Entrée</th>
+                    <th>Plat</th>
+                    <th>Dessert</th>
+                    <th>Date création</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of menus; trackBy: trackId">
+                    <td>
+                        <span *ngIf="item.entree">{{ item.entree.name }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.principal">{{ item.principal.name }}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.dessert">{{ item.dessert.name }}</span>
+                    </td>
+                    <td>
+                        La date
+                    </td>
+                    <td>
+                        Les actions
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <h2>Dashboard menu</h2>
-
+</div>

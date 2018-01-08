@@ -14,9 +14,9 @@
         </div>
 
         <div class="form-group">
-            <label for="field_meals">Meals</label>
-            <select class="form-control" id="field_meals" multiple name="meals" [(ngModel)]="menu.meals">
-                <option [ngValue]="getSelected(menu.meals, dishOption)" *ngFor="let dishOption of dishes; trackBy: trackDishById">{{dishOption.id}}</option>
+            <label for="field_dishes">Dishes</label>
+            <select class="form-control" id="field_dishes" multiple name="dishes" [(ngModel)]="menu.dishes">
+                <option [ngValue]="getSelected(menu.dishes, dishOption)" *ngFor="let dishOption of dishes; trackBy: trackDishById">{{dishOption.id}}</option>
             </select>
         </div>
     </div>

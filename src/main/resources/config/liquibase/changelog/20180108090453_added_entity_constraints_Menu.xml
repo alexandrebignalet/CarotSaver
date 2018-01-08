@@ -9,13 +9,13 @@
     <changeSet id="20180108090453-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="menus_id"
-                                 baseTableName="menu_meals"
-                                 constraintName="fk_menu_meals_menus_id"
+                                 baseTableName="menu_dishes"
+                                 constraintName="fk_menu_dishes_menus_id"
                                  referencedColumnNames="id"
                                  referencedTableName="menu"/>
-        <addForeignKeyConstraint baseColumnNames="meals_id"
-                                 baseTableName="menu_meals"
-                                 constraintName="fk_menu_meals_meals_id"
+        <addForeignKeyConstraint baseColumnNames="dishes_id"
+                                 baseTableName="menu_dishes"
+                                 constraintName="fk_menu_dishes_dishes_id"
                                  referencedColumnNames="id"
                                  referencedTableName="dish"/>
         <loadData encoding="UTF-8"

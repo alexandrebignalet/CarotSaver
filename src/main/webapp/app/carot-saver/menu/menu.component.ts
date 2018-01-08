@@ -16,7 +16,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService 
 
 })
 export class MenuComponent implements OnInit, OnDestroy {
-    menus: MenuCs[];
+    menus: any;
     currentAccount: any;
     eventSubscriber: Subscription;
 
@@ -31,8 +31,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     loadAll() {
         this.menuService.query().subscribe(
             (res: ResponseWrapper) => {
-                this.menus = res.json;
-                console.log(this.menus);
+
+                this.parseData(res.json);
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -58,5 +58,19 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    private parseData(data) {
+        for(let item of data){
+            item.entree = item.dishes.filter( dish => dish.type == "ENTREE")[0];
+            item.principal = item.dishes.filter( dish => dish.type == "PRINCIPAL")[0];
+            item.dessert = item.dishes.filter( dish => dish.type == "DESERT")[0];
+        }
+
+        console.log(data);
+
+        this.menus = data;
+
+
     }
 }

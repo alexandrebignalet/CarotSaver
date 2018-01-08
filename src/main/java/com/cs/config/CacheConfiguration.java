@@ -50,6 +50,7 @@ public class CacheConfiguration {
             cm.createCache(com.cs.domain.WasteMetric.class.getName(), jcacheConfiguration);
             cm.createCache(com.cs.domain.Dish.class.getName(), jcacheConfiguration);
             cm.createCache(com.cs.domain.Dish.class.getName() + ".foodCategories", jcacheConfiguration);
+            cm.createCache(com.cs.domain.Menu.class.getName() + ".dishes", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
