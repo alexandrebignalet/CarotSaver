@@ -20,10 +20,6 @@
     ],
     "fields": [
         {
-            "fieldName": "date",
-            "fieldType": "LocalDate"
-        },
-        {
             "fieldName": "nbPresent",
             "fieldType": "Integer"
         }
@@ -33,6 +29,5 @@
     "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
-    "microserviceName": "CSaver",
     "angularJSSuffix": "cs"
 }

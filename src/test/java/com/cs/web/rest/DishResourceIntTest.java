@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.cs.domain.enumeration.MealType;
+import com.cs.domain.enumeration.DishType;
 /**
  * Test class for the DishResource REST controller.
  *
@@ -42,8 +42,8 @@ public class DishResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final MealType DEFAULT_TYPE = MealType.ENTREE;
-    private static final MealType UPDATED_TYPE = MealType.PRINCIPAL;
+    private static final DishType DEFAULT_TYPE = DishType.ENTREE;
+    private static final DishType UPDATED_TYPE = DishType.PRINCIPAL;
 
     @Autowired
     private DishRepository dishRepository;

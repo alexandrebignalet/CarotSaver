@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
 
-import { JhiDateUtils } from 'ng-jhipster';
-
 import { MealCs } from './meal-cs.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
@@ -13,7 +11,7 @@ export class MealCsService {
 
     private resourceUrl = SERVER_API_URL + 'api/meals';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: Http) { }
 
     create(meal: MealCs): Observable<MealCs> {
         const copy = this.convert(meal);
@@ -62,8 +60,6 @@ export class MealCsService {
      */
     private convertItemFromServer(json: any): MealCs {
         const entity: MealCs = Object.assign(new MealCs(), json);
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(json.date);
         return entity;
     }
 
@@ -72,8 +68,6 @@ export class MealCsService {
      */
     private convert(meal: MealCs): MealCs {
         const copy: MealCs = Object.assign({}, meal);
-        copy.date = this.dateUtils
-            .convertLocalDateToServer(meal.date);
         return copy;
     }
 }

@@ -26,13 +26,6 @@ export class MealCsPopupService {
 
             if (id) {
                 this.mealService.find(id).subscribe((meal) => {
-                    if (meal.date) {
-                        meal.date = {
-                            year: meal.date.getFullYear(),
-                            month: meal.date.getMonth() + 1,
-                            day: meal.date.getDate()
-                        };
-                    }
                     this.ngbModalRef = this.mealModalRef(component, meal);
                     resolve(this.ngbModalRef);
                 });

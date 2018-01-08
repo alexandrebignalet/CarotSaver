@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import com.cs.domain.enumeration.MealType;
+import com.cs.domain.enumeration.DishType;
 
 /**
  * A Dish.
@@ -30,7 +30,7 @@ public class Dish implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "jhi_type")
-    private MealType type;
+    private DishType type;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -61,16 +61,16 @@ public class Dish implements Serializable {
         this.name = name;
     }
 
-    public MealType getType() {
+    public DishType getType() {
         return type;
     }
 
-    public Dish type(MealType type) {
+    public Dish type(DishType type) {
         this.type = type;
         return this;
     }
 
-    public void setType(MealType type) {
+    public void setType(DishType type) {
         this.type = type;
     }
 

@@ -13,16 +13,6 @@
                    [(ngModel)]="meal.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_date">Date</label>
-            <div class="input-group">
-                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="meal.date"
-                />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" for="field_nbPresent">Nb Present</label>
             <input type="number" class="form-control" name="nbPresent" id="field_nbPresent"
                 [(ngModel)]="meal.nbPresent"  />

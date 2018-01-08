@@ -25,7 +25,6 @@ export class MealCsDialogComponent implements OnInit {
     menus: MenuCs[];
 
     wastemetrics: WasteMetricCs[];
-    dateDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

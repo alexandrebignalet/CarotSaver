@@ -1,8 +1,8 @@
 package com.cs.domain.enumeration;
 
 /**
- * The MealType enumeration.
+ * The DishType enumeration.
  */
-public enum MealType {
+public enum DishType {
     ENTREE, PRINCIPAL, DESERT, OTHER
 }
