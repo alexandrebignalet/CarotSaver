@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
@@ -6,6 +6,8 @@ import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } fr
 import {MenuCs} from "../../../entities/menu/menu-cs.model";
 import {MenuCsService} from "../../../entities/menu/menu-cs.service";
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../../shared';
+import {DishCsService} from "../../../entities/dish/dish-cs.service";
+import {DishCs} from "../../../entities/dish/dish-cs.model";
 
 @Component({
     selector: 'jhi-home',
@@ -15,45 +17,50 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService 
     ]
 
 })
-export class MenuEditComponent implements OnInit, OnDestroy {
-    menus: any;
+export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
     currentAccount: any;
     eventSubscriber: Subscription;
+    dishes: DishCs[];
+    desserts: DishCs[];
+    principals: DishCs[];
+    entrees: DishCs[];
+
+    selectedEntree: DishCs;
 
     constructor(
         private menuService: MenuCsService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private dishService: DishCsService,
     ) {
+        this.selectedEntree = {};
     }
 
-    loadAll() {
-        this.menuService.query().subscribe(
-            (res: ResponseWrapper) => {
-
-                this.parseData(res.json);
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
-        );
-    }
     ngOnInit() {
-        this.loadAll();
+        this.dishService.query()
+            .subscribe((res: ResponseWrapper) => {
+                this.dishes = res.json;
+                this.parseData(res.json)
+            }, (res: ResponseWrapper) => this.onError(res.json));
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInMenus();
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+        //this.eventManager.destroy(this.eventSubscriber);
     }
+
+    ngOnChanges(changes: SimpleChanges) {
+        // changes.prop contains the old and the new value...
+        console.log(changes);
+    }
+
 
     trackId(index: number, item: MenuCs) {
         return item.id;
-    }
-    registerChangeInMenus() {
-        this.eventSubscriber = this.eventManager.subscribe('menuListModification', (response) => this.loadAll());
     }
 
     private onError(error) {
@@ -61,16 +68,12 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     }
 
     private parseData(data) {
-        for(let item of data){
-            item.entree = item.dishes.filter( dish => dish.type == "ENTREE")[0];
-            item.principal = item.dishes.filter( dish => dish.type == "PRINCIPAL")[0];
-            item.dessert = item.dishes.filter( dish => dish.type == "DESERT")[0];
-        }
+        this.entrees = data.filter( item => item.type == 'ENTREE');
+        this.principals = data.filter( item => item.type == 'PRINCIPAL');
+        this.desserts = data.filter( item => item.type == 'DESSERT');
 
-        console.log(data);
-
-        this.menus = data;
-
-
+        console.log(this.desserts);
+        console.log(this.principals);
+        console.log(this.entrees);
     }
 }
