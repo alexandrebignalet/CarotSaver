@@ -27,5 +27,6 @@
                   <!--file="config/liquibase/datainitialization/menu_dishes.csv"-->
                   <!--separator=";"-->
                   <!--tableName="menu_meals"/>-->
+
     </changeSet>
 </databaseChangeLog>
