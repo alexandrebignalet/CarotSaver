@@ -25,6 +25,8 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     isSaving: boolean;
+    showDishForm:boolean;
+    dishType: string;
 
     foodcategories: FoodCategoryCs[];
     dishes: DishCs[];
@@ -72,6 +74,8 @@ export class MenuEditComponent implements OnInit, OnDestroy {
             classes:"myclass custom-class"
         };
         this.isSaving = false;
+        this.showDishForm = false;
+        this.dishType = '';
         this.dishService.query()
             .subscribe((res: ResponseWrapper) => {
                 this.dishes = res.json;
@@ -108,7 +112,14 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         this.save();
     }
 
-    sho
+    showForm(type) {
+        this.showDishForm = true;
+        this.dishType = type;
+    }
+
+    closeForm() {
+        this.showDishForm = false
+    }
 
     save() {
         if (this.menu.id !== undefined) {
