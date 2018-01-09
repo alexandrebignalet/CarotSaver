@@ -7,7 +7,7 @@
         Added the constraints for entity Menu.
     -->
     <changeSet id="20180108090453-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="menus_id"
                                  baseTableName="menu_dishes"
                                  constraintName="fk_menu_dishes_menus_id"
@@ -18,6 +18,15 @@
                                  constraintName="fk_menu_dishes_dishes_id"
                                  referencedColumnNames="id"
                                  referencedTableName="dish"/>
-        
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/datainitialization/menu.csv"
+                  separator=";"
+                  tableName="menu"/>
+        <!--<loadData encoding="UTF-8"-->
+                  <!--file="config/liquibase/datainitialization/menu_dishes.csv"-->
+                  <!--separator=";"-->
+                  <!--tableName="menu_meals"/>-->
+
     </changeSet>
 </databaseChangeLog>
