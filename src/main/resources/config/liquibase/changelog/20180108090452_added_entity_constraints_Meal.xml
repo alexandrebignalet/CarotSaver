@@ -19,6 +19,7 @@
                                  constraintName="fk_meal_waste_metric_id"
                                  referencedColumnNames="id"
                                  referencedTableName="waste_metric"/>
+
         <loadData encoding="UTF-8"
                   file="config/liquibase/datainitialization/meal.csv"
                   separator=";"
