@@ -1,0 +1,68 @@
+<div>
+    <h2>
+        <span>Satisfaction Surveys</span>
+        <button class="btn btn-primary float-right jh-create-entity create-satisfaction-survey-cs" [routerLink]="['/', { outlets: { popup: ['satisfaction-survey-cs-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Satisfaction Survey
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="satisfactionSurveys">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Student Name</span></th>
+            <th><span>Quality Rate</span></th>
+            <th><span>Quantity Rate</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let satisfactionSurvey of satisfactionSurveys ;trackBy: trackId">
+                <td><a [routerLink]="['../satisfaction-survey-cs', satisfactionSurvey.id ]">{{satisfactionSurvey.id}}</a></td>
+                <td>{{satisfactionSurvey.studentName}}</td>
+                <td>
+                    <div *ngIf="satisfactionSurvey.qualityRate">
+                        <a [routerLink]="['../meal-rate-cs', satisfactionSurvey.qualityRate?.id ]" >{{satisfactionSurvey.qualityRate?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="satisfactionSurvey.quantityRate">
+                        <a [routerLink]="['../meal-rate-cs', satisfactionSurvey.quantityRate?.id ]" >{{satisfactionSurvey.quantityRate?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../satisfaction-survey-cs', satisfactionSurvey.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'satisfaction-survey-cs/'+ satisfactionSurvey.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'satisfaction-survey-cs/'+ satisfactionSurvey.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

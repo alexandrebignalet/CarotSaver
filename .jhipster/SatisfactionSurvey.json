@@ -3,29 +3,29 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "menu",
-            "otherEntityName": "menu",
+            "relationshipName": "qualityRate",
+            "otherEntityName": "mealRate",
             "otherEntityField": "id",
             "ownerSide": true,
-            "otherEntityRelationshipName": "meal"
+            "otherEntityRelationshipName": "satisfactionSurvey"
         },
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "wasteMetric",
-            "otherEntityName": "wasteMetric",
+            "relationshipName": "quantityRate",
+            "otherEntityName": "mealRate",
             "otherEntityField": "id",
             "ownerSide": true,
-            "otherEntityRelationshipName": "meal"
+            "otherEntityRelationshipName": "satisfactionSurvey"
         }
     ],
     "fields": [
         {
-            "fieldName": "nbPresent",
-            "fieldType": "Integer"
+            "fieldName": "studentName",
+            "fieldType": "String"
         }
     ],
-    "changelogDate": "20180108090452",
-    "entityTableName": "meal",
+    "changelogDate": "20180109131626",
+    "entityTableName": "satisfaction_survey",
     "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",

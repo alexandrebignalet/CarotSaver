@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity SatisfactionSurvey.
+    -->
+    <changeSet id="20180109131626-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="quality_rate_id"
+                                 baseTableName="satisfaction_survey"
+                                 constraintName="fk_satisfaction_survey_quality_rate_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="meal_rate"/>
+
+        <addForeignKeyConstraint baseColumnNames="quantity_rate_id"
+                                 baseTableName="satisfaction_survey"
+                                 constraintName="fk_satisfaction_survey_quantity_rate_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="meal_rate"/>
+
+    </changeSet>
+</databaseChangeLog>

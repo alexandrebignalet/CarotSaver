@@ -51,6 +51,8 @@ public class CacheConfiguration {
             cm.createCache(com.cs.domain.Dish.class.getName(), jcacheConfiguration);
             cm.createCache(com.cs.domain.Dish.class.getName() + ".foodCategories", jcacheConfiguration);
             cm.createCache(com.cs.domain.Menu.class.getName() + ".dishes", jcacheConfiguration);
+            cm.createCache(com.cs.domain.MealRate.class.getName(), jcacheConfiguration);
+            cm.createCache(com.cs.domain.SatisfactionSurvey.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

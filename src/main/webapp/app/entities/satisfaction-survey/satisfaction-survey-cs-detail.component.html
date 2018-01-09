@@ -1,0 +1,37 @@
+
+<div *ngIf="satisfactionSurvey">
+    <h2><span>Satisfaction Survey</span> {{satisfactionSurvey.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Student Name</span></dt>
+        <dd>
+            <span>{{satisfactionSurvey.studentName}}</span>
+        </dd>
+        <dt><span>Quality Rate</span></dt>
+        <dd>
+            <div *ngIf="satisfactionSurvey.qualityRate">
+                <a [routerLink]="['/meal-rate-cs', satisfactionSurvey.qualityRate?.id]">{{satisfactionSurvey.qualityRate?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Quantity Rate</span></dt>
+        <dd>
+            <div *ngIf="satisfactionSurvey.quantityRate">
+                <a [routerLink]="['/meal-rate-cs', satisfactionSurvey.quantityRate?.id]">{{satisfactionSurvey.quantityRate?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'satisfaction-survey-cs/'+ satisfactionSurvey.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
