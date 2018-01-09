@@ -8,6 +8,7 @@ import {MenuCsService} from "../../../entities/menu/menu-cs.service";
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../../shared';
 import {DishCsService} from "../../../entities/dish/dish-cs.service";
 import {DishCs} from "../../../entities/dish/dish-cs.model";
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'jhi-home',
@@ -17,15 +18,21 @@ import {DishCs} from "../../../entities/dish/dish-cs.model";
     ]
 
 })
-export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
+export class MenuEditComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
+    isSaving: boolean;
+
     dishes: DishCs[];
     desserts: DishCs[];
     principals: DishCs[];
     entrees: DishCs[];
 
     selectedEntree: DishCs;
+    selectedPrincipal: DishCs;
+    selectedDessert: DishCs;
+
+    menu: MenuCs;
 
     constructor(
         private menuService: MenuCsService,
@@ -34,10 +41,14 @@ export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
         private principal: Principal,
         private dishService: DishCsService,
     ) {
+        this.menu = {};
         this.selectedEntree = {};
+        this.selectedPrincipal = {};
+        this.selectedDessert = {};
     }
 
     ngOnInit() {
+        this.isSaving = false;
         this.dishService.query()
             .subscribe((res: ResponseWrapper) => {
                 this.dishes = res.json;
@@ -53,27 +64,58 @@ export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
         //this.eventManager.destroy(this.eventSubscriber);
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        // changes.prop contains the old and the new value...
-        console.log(changes);
+
+    onSubmit() {
+        this.menu.dishes = [
+            this.selectedEntree,
+            this.selectedPrincipal,
+            this.selectedDessert
+        ];
+
+        console.log(this.menu);
+        this.save();
     }
 
+    save() {
+        if (this.menu.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.menuService.update(this.menu));
+        } else {
+            this.subscribeToSaveResponse(
+                this.menuService.create(this.menu));
+        }
+    }
+
+    private onSaveSuccess(result: MenuCs) {
+        this.eventManager.broadcast({ name: 'menuListModification', content: 'OK'});
+        this.isSaving = false;
+    }
+
+    private subscribeToSaveResponse(result: Observable<MenuCs>) {
+        result.subscribe((res: MenuCs) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
 
     trackId(index: number, item: MenuCs) {
         return item.id;
     }
 
-    private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
-    }
 
     private parseData(data) {
         this.entrees = data.filter( item => item.type == 'ENTREE');
         this.principals = data.filter( item => item.type == 'PRINCIPAL');
         this.desserts = data.filter( item => item.type == 'DESSERT');
 
-        console.log(this.desserts);
-        console.log(this.principals);
-        console.log(this.entrees);
+        this.selectedEntree = this.entrees[0];
+        this.selectedPrincipal = this.principals[0];
+        this.selectedDessert = this.desserts[0];
     }
 }

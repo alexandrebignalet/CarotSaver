@@ -52,7 +52,6 @@ export class MenuCsDialogComponent implements OnInit {
                 this.menuService.create(this.menu));
         }
     }
-
     private subscribeToSaveResponse(result: Observable<MenuCs>) {
         result.subscribe((res: MenuCs) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError());

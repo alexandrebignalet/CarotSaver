@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <form>
+        <form (ngSubmit)="onSubmit()" #menuForm="ngForm">
             <div class="form-group">
                 <label for="entree">Entrée</label>
                 <select name="entreeSelect"
@@ -30,6 +30,7 @@
                     <option *ngFor="let dessert of desserts" [value]="dessert">{{dessert.name}}</option>
                 </select>
             </div>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>
