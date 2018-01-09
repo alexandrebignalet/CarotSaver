@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class MealServiceImpl implements MealService{
+public class MealServiceImpl implements MealService {
 
     private final Logger log = LoggerFactory.getLogger(MealServiceImpl.class);
 
@@ -47,6 +48,17 @@ public class MealServiceImpl implements MealService{
     public List<Meal> findAll() {
         log.debug("Request to get all Meals");
         return mealRepository.findAll();
+    }
+
+    /**
+     *  Get all the meals between dates.
+     *
+     *  @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<Meal> findByCreatedDateBetween(Instant startDate, Instant endDate) {
+        return this.mealRepository.findMealsByCreatedDateBetween(startDate, endDate);
     }
 
     /**
