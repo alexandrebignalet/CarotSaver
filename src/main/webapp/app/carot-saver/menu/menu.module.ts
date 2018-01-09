@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 import { CarotSaverSharedModule } from '../../shared';
 
@@ -9,6 +10,7 @@ import {MenuEditComponent} from "./menu-edit/menu-edit.component";
 @NgModule({
     imports: [
         CarotSaverSharedModule,
+        AngularMultiSelectModule,
         RouterModule.forRoot(MENU_ROUTE , { useHash: true })
     ],
     declarations: [

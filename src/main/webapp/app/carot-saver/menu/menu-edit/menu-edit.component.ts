@@ -10,6 +10,8 @@ import {DishCsService} from "../../../entities/dish/dish-cs.service";
 import {DishCs} from "../../../entities/dish/dish-cs.model";
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import {FoodCategoryCsService} from "../../../entities/food-category/food-category-cs.service";
+import {FoodCategoryCs} from "../../../entities/food-category/food-category-cs.model";
 
 @Component({
     selector: 'jhi-home',
@@ -24,6 +26,7 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     isSaving: boolean;
 
+    foodcategories: FoodCategoryCs[];
     dishes: DishCs[];
     desserts: DishCs[];
     principals: DishCs[];
@@ -32,8 +35,11 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     selectedEntree: any;
     selectedPrincipal: any;
     selectedDessert: any;
+    selectedItems: any;
+    dropdownSettings: any;
 
     menu: MenuCs;
+    dish: DishCs;
 
     constructor(
         private menuService: MenuCsService,
@@ -41,20 +47,44 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         private eventManager: JhiEventManager,
         private principal: Principal,
         private dishService: DishCsService,
+        private foodCategoryService: FoodCategoryCsService,
         private router: Router
     ) {
+        this.foodcategories = [];
+
         this.menu = {};
+        this.dish = {};
+        this.selectedItems = [];
         this.selectedEntree = {};
         this.selectedPrincipal = {};
         this.selectedDessert = {};
     }
 
+
     ngOnInit() {
+
+        this.dropdownSettings = {
+            singleSelection: false,
+            text:"Select Countries",
+            selectAllText:'Select All',
+            unSelectAllText:'UnSelect All',
+            enableSearchFilter: true,
+            classes:"myclass custom-class"
+        };
         this.isSaving = false;
         this.dishService.query()
             .subscribe((res: ResponseWrapper) => {
                 this.dishes = res.json;
                 this.parseData(res.json)
+            }, (res: ResponseWrapper) => this.onError(res.json));
+
+        this.foodCategoryService.query()
+            .subscribe((res: ResponseWrapper) => {
+                this.foodcategories = res.json.map( item => {
+                    item.itemName = item.name;
+                    return item;
+                });
+                console.log(this.foodcategories);
             }, (res: ResponseWrapper) => this.onError(res.json));
 
         this.principal.identity().then((account) => {
@@ -77,6 +107,8 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         console.log(this.menu);
         this.save();
     }
+
+    sho
 
     save() {
         if (this.menu.id !== undefined) {
@@ -111,6 +143,21 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
+    }
+
+    trackFoodCategoryById(index: number, item: FoodCategoryCs) {
+        return item.id;
+    }
+
 
     private parseData(data) {
         this.entrees = data.filter( item => item.type == 'ENTREE');
@@ -120,5 +167,6 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         this.selectedEntree = this.entrees[0].id;
         this.selectedPrincipal = this.principals[0].id;
         this.selectedDessert = this.desserts[0].id;
+
     }
 }
