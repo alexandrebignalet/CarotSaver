@@ -22,11 +22,19 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
-        <createTable tableName="menu_dishes">
-            <column name="dishes_id" type="bigint">
+
+        <createTable tableName="menu_meals">
+            <column name="meals_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="menus_id" type="bigint">
@@ -34,8 +42,8 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="menus_id, dishes_id" tableName="menu_dishes"/>
-        
+        <addPrimaryKey columnNames="menus_id, meals_id" tableName="menu_meals"/>
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
