@@ -11,7 +11,7 @@
                 <select name="entreeSelect"
                         id="entree"
                         [(ngModel)]="selectedEntree">
-                    <option *ngFor="let entree of entrees" [value]="entree">{{entree.name}}</option>
+                    <option *ngFor="let entree of entrees;" [value]="entree.id">{{entree.name}}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -19,7 +19,7 @@
                 <select name="principalSelect"
                         id="principal"
                         [(ngModel)]="selectedPrincipal">
-                    <option *ngFor="let principal of principals" [value]="principal">{{principal.name}}</option>
+                    <option *ngFor="let principal of principals" [value]="principal.id">{{principal.name}}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -27,7 +27,7 @@
                 <select name="dessertSelect"
                         id="dessert"
                         [(ngModel)]="selectedDessert">
-                    <option *ngFor="let dessert of desserts" [value]="dessert">{{dessert.name}}</option>
+                    <option *ngFor="let dessert of desserts" [value]="dessert.id">{{dessert.name}}</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>

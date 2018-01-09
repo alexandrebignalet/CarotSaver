@@ -9,6 +9,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService 
 import {DishCsService} from "../../../entities/dish/dish-cs.service";
 import {DishCs} from "../../../entities/dish/dish-cs.model";
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'jhi-home',
@@ -28,9 +29,9 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     principals: DishCs[];
     entrees: DishCs[];
 
-    selectedEntree: DishCs;
-    selectedPrincipal: DishCs;
-    selectedDessert: DishCs;
+    selectedEntree: any;
+    selectedPrincipal: any;
+    selectedDessert: any;
 
     menu: MenuCs;
 
@@ -40,6 +41,7 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         private eventManager: JhiEventManager,
         private principal: Principal,
         private dishService: DishCsService,
+        private router: Router
     ) {
         this.menu = {};
         this.selectedEntree = {};
@@ -67,9 +69,9 @@ export class MenuEditComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         this.menu.dishes = [
-            this.selectedEntree,
-            this.selectedPrincipal,
-            this.selectedDessert
+            this.dishes.filter( item => item.id == this.selectedEntree)[0],
+            this.dishes.filter( item => item.id == this.selectedPrincipal)[0],
+            this.dishes.filter( item => item.id == this.selectedDessert)[0],
         ];
 
         console.log(this.menu);
@@ -89,6 +91,7 @@ export class MenuEditComponent implements OnInit, OnDestroy {
     private onSaveSuccess(result: MenuCs) {
         this.eventManager.broadcast({ name: 'menuListModification', content: 'OK'});
         this.isSaving = false;
+        this.router.navigate(['/carot-saver-menu'])
     }
 
     private subscribeToSaveResponse(result: Observable<MenuCs>) {
@@ -114,8 +117,8 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         this.principals = data.filter( item => item.type == 'PRINCIPAL');
         this.desserts = data.filter( item => item.type == 'DESSERT');
 
-        this.selectedEntree = this.entrees[0];
-        this.selectedPrincipal = this.principals[0];
-        this.selectedDessert = this.desserts[0];
+        this.selectedEntree = this.entrees[0].id;
+        this.selectedPrincipal = this.principals[0].id;
+        this.selectedDessert = this.desserts[0].id;
     }
 }

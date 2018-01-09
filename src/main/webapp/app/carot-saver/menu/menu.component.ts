@@ -70,7 +70,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         for(let item of data) {
             item.entree = item.dishes.filter(dish => dish.type == "ENTREE")[0];
             item.principal = item.dishes.filter(dish => dish.type == "PRINCIPAL")[0];
-            item.dessert = item.dishes.filter(dish => dish.type == "DESERT")[0];
+            item.dessert = item.dishes.filter(dish => dish.type == "DESSERT")[0];
         }
         this.menus = data;
     }
