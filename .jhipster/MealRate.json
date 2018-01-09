@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "first",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "main",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "last",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "other",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180109131627",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "meal_rate",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "angularJSSuffix": "cs"
+}

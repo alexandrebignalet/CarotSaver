@@ -6,6 +6,17 @@ enum DishType {
     ENTREE, PRINCIPAL, DESERT, OTHER
 }
 
+entity SatisfactionSurvey {
+	studentName String
+}
+
+entity MealRate {
+	first Integer,
+    main Integer,
+    last Integer,
+    other Integer
+}
+
 
 entity Dish {
 	name String
@@ -14,7 +25,7 @@ entity Dish {
 
 relationship ManyToMany {
 	Dish{foodCategories} to FoodCategory,
-    Menu{meals} to Dish
+    Menu{dishes} to Dish
 }
 
 entity Menu {
@@ -31,6 +42,8 @@ entity Meal {
 }
 
 relationship OneToOne {
+	SatisfactionSurvey{qualityRate} to MealRate,
+    SatisfactionSurvey{quantityRate} to MealRate,
 	Meal{menu} to Menu,
     Meal{wasteMetric} to WasteMetric
 }

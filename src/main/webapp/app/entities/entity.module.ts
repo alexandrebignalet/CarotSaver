@@ -5,6 +5,8 @@ import { CarotSaverMealCsModule } from './meal/meal-cs.module';
 import { CarotSaverMenuCsModule } from './menu/menu-cs.module';
 import { CarotSaverWasteMetricCsModule } from './waste-metric/waste-metric-cs.module';
 import { CarotSaverDishCsModule } from './dish/dish-cs.module';
+import { CarotSaverMealRateCsModule } from './meal-rate/meal-rate-cs.module';
+import { CarotSaverSatisfactionSurveyCsModule } from './satisfaction-survey/satisfaction-survey-cs.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -14,6 +16,8 @@ import { CarotSaverDishCsModule } from './dish/dish-cs.module';
         CarotSaverMenuCsModule,
         CarotSaverWasteMetricCsModule,
         CarotSaverDishCsModule,
+        CarotSaverMealRateCsModule,
+        CarotSaverSatisfactionSurveyCsModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

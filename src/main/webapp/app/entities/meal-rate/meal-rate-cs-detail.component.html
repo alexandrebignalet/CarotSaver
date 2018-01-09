@@ -1,0 +1,37 @@
+
+<div *ngIf="mealRate">
+    <h2><span>Meal Rate</span> {{mealRate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>First</span></dt>
+        <dd>
+            <span>{{mealRate.first}}</span>
+        </dd>
+        <dt><span>Main</span></dt>
+        <dd>
+            <span>{{mealRate.main}}</span>
+        </dd>
+        <dt><span>Last</span></dt>
+        <dd>
+            <span>{{mealRate.last}}</span>
+        </dd>
+        <dt><span>Other</span></dt>
+        <dd>
+            <span>{{mealRate.other}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'meal-rate-cs/'+ mealRate.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
