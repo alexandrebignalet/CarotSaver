@@ -4,7 +4,7 @@
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
-            "relationshipName": "meals",
+            "relationshipName": "dishes",
             "otherEntityName": "dish",
             "otherEntityField": "id",
             "ownerSide": true
