@@ -4,14 +4,16 @@ import { RouterModule } from '@angular/router';
 import { CarotSaverSharedModule } from '../../shared';
 
 import { MENU_ROUTE, MenuComponent } from './';
+import {MenuEditComponent} from "./menu-edit/menu-edit.component";
 
 @NgModule({
     imports: [
         CarotSaverSharedModule,
-        RouterModule.forRoot([ MENU_ROUTE ], { useHash: true })
+        RouterModule.forRoot(MENU_ROUTE , { useHash: true })
     ],
     declarations: [
         MenuComponent,
+        MenuEditComponent
     ],
     entryComponents: [
     ],

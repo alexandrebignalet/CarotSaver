@@ -3,20 +3,19 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
-import {MenuCs} from "../../entities/menu/menu-cs.model";
-import {MenuCsService} from "../../entities/menu/menu-cs.service";
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../shared';
-import {Router} from '@angular/router';
+import {MenuCs} from "../../../entities/menu/menu-cs.model";
+import {MenuCsService} from "../../../entities/menu/menu-cs.service";
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../../shared';
 
 @Component({
     selector: 'jhi-home',
-    templateUrl: './menu.component.html',
+    templateUrl: './menu-edit.component.html',
     styleUrls: [
-        'menu.scss'
+        '../menu.scss'
     ]
 
 })
-export class MenuComponent implements OnInit, OnDestroy {
+export class MenuEditComponent implements OnInit, OnDestroy {
     menus: any;
     currentAccount: any;
     eventSubscriber: Subscription;
@@ -25,8 +24,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         private menuService: MenuCsService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal,
-        private router: Router
+        private principal: Principal
     ) {
     }
 
@@ -58,22 +56,21 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('menuListModification', (response) => this.loadAll());
     }
 
-    goToEdit() {
-        this.router.navigate(['/carot-saver-menu-edit'])
-    }
-
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
 
     private parseData(data) {
-        for(let item of data) {
-            item.entree = item.dishes.filter(dish => dish.type == "ENTREE")[0];
-            item.principal = item.dishes.filter(dish => dish.type == "PRINCIPAL")[0];
-            item.dessert = item.dishes.filter(dish => dish.type == "DESERT")[0];
+        for(let item of data){
+            item.entree = item.dishes.filter( dish => dish.type == "ENTREE")[0];
+            item.principal = item.dishes.filter( dish => dish.type == "PRINCIPAL")[0];
+            item.dessert = item.dishes.filter( dish => dish.type == "DESERT")[0];
         }
+
+        console.log(data);
+
         this.menus = data;
+
+
     }
-
-
 }
