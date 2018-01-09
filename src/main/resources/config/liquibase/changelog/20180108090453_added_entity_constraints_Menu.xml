@@ -23,10 +23,11 @@
                   file="config/liquibase/datainitialization/menu.csv"
                   separator=";"
                   tableName="menu"/>
-        <!--<loadData encoding="UTF-8"-->
-                  <!--file="config/liquibase/datainitialization/menu_dishes.csv"-->
-                  <!--separator=";"-->
-                  <!--tableName="menu_meals"/>-->
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/datainitialization/menu_dishes.csv"
+                  separator=";"
+                  tableName="menu_dishes"/>
 
     </changeSet>
 </databaseChangeLog>
