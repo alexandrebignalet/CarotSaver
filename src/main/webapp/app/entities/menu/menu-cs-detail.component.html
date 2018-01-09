@@ -4,10 +4,10 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span>Meals</span></dt>
+        <dt><span>Dishes</span></dt>
         <dd>
-            <span *ngFor="let meals of menu.meals; let last = last">
-                <a [routerLink]="['/dish-cs', meals?.id ]">{{meals.id}}</a>{{last ? '' : ', '}}
+            <span *ngFor="let dishes of menu.dishes; let last = last">
+                <a [routerLink]="['/dish-cs', dishes?.id ]">{{dishes.id}}</a>{{last ? '' : ', '}}
             </span>
         </dd>
     </dl>

@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "menu")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Menu extends AbstractAuditingEntity implements Serializable {
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,10 +25,10 @@ public class Menu extends AbstractAuditingEntity implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "menu_meals",
+    @JoinTable(name = "menu_dishes",
                joinColumns = @JoinColumn(name="menus_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="meals_id", referencedColumnName="id"))
-    private Set<Dish> meals = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name="dishes_id", referencedColumnName="id"))
+    private Set<Dish> dishes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -39,27 +39,27 @@ public class Menu extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public Set<Dish> getMeals() {
-        return meals;
+    public Set<Dish> getDishes() {
+        return dishes;
     }
 
-    public Menu meals(Set<Dish> dishes) {
-        this.meals = dishes;
+    public Menu dishes(Set<Dish> dishes) {
+        this.dishes = dishes;
         return this;
     }
 
-    public Menu addMeals(Dish dish) {
-        this.meals.add(dish);
+    public Menu addDishes(Dish dish) {
+        this.dishes.add(dish);
         return this;
     }
 
-    public Menu removeMeals(Dish dish) {
-        this.meals.remove(dish);
+    public Menu removeDishes(Dish dish) {
+        this.dishes.remove(dish);
         return this;
     }
 
-    public void setMeals(Set<Dish> dishes) {
-        this.meals = dishes;
+    public void setDishes(Set<Dish> dishes) {
+        this.dishes = dishes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
