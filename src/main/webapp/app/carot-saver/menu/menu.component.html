@@ -34,7 +34,7 @@
                         <span *ngIf="item.dessert">{{ item.dessert.name }}</span>
                     </td>
                     <td>
-                        {{ item }}
+                        {{ item.createdDate | date:"dd/MM/yy" }}
                     </td>
                     <td>
                         Les actions
