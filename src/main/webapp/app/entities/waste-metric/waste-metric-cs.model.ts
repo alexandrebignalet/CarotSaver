@@ -8,4 +8,8 @@ export class WasteMetricCs implements BaseEntity {
         public other?: number,
     ) {
     }
+
+    public getTotal(): number {
+        return this.plastic + this.green + this.other;
+    }
 }

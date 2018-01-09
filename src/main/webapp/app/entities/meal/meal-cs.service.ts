@@ -36,6 +36,17 @@ export class MealCsService {
         });
     }
 
+    /**
+     *
+     * @param startDate yyyy-MM-dd
+     * @param endDate yyyy-MM-dd
+     * @returns Observable<ResponseWrapper>
+     */
+    findByCreatedDateBetWeen(startDate, endDate): Observable<ResponseWrapper> {
+        return this.http.get(`${this.resourceUrl}/${startDate}/${endDate}`)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)

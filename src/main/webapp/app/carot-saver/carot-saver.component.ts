@@ -31,50 +31,8 @@ export class CarotSaverComponent {
     fromDate: NgbDateStruct;
     toDate: NgbDateStruct;
     meals: MealCs[];
-
-    constructor(
-        private calendar: NgbCalendar,
-        private mealService: MealCsService,
-        private jhiAlertService: JhiAlertService,
-    ) {
-        this.fromDate = calendar.getToday();
-        this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    }
-
-    loadAll() {
-        this.mealService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.meals = res.json;
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
-        );
-    }
-    ngOnInit() {
-        this.loadAll();
-    }
-
-    private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
-    }
-
-    onDateChange(date: NgbDateStruct) {
-        if (!this.fromDate && !this.toDate) {
-            this.fromDate = date;
-        } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-            this.toDate = date;
-        } else {
-            this.toDate = null;
-            this.fromDate = date;
-        }
-    }
-
-    isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-    isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-    isFrom = date => equals(date, this.fromDate);
-    isTo = date => equals(date, this.toDate);
-
     public lineChartData:Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Evolution du gaspillage'}
     ];
     public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     public lineChartOptions:any = {
@@ -92,4 +50,73 @@ export class CarotSaverComponent {
     ];
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
+
+    constructor(
+        private calendar: NgbCalendar,
+        private mealService: MealCsService,
+        private jhiAlertService: JhiAlertService,
+    ) {
+        this.fromDate = calendar.getToday();
+        this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    }
+
+    private updateCharts() {
+        let _lineChartData:Array<any> = [ {data: this.meals.map((meal: MealCs) => {
+                let myMeal = new MealCs(meal.id, meal.nbPresent, meal.menu, meal.wasteMetric);
+                return myMeal.wasteMetric.getTotal();
+            }),
+            label: 'Evolution du gaspillage'}]
+        ;
+
+        let _lineChartLabels: Array<any> = this.meals.map((meal: MealCs) => meal.createdDate);
+
+        setTimeout(function () {
+            this.lineChartLabels = _lineChartLabels;
+            this.lineChartData = _lineChartData;
+            console.log(this.lineChartData, this.lineChartLabels);
+        }, 100);
+
+
+    }
+
+    loadByCreatedDateBetween() {
+        if(!(this.fromDate && this.toDate)) return;
+
+        this.mealService.findByCreatedDateBetWeen(this.formatDate(this.fromDate), this.formatDate(this.toDate)).subscribe(
+            (res: ResponseWrapper) => {
+                this.meals = res.json;
+                this.updateCharts();
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+    }
+
+    private formatDate(date) {
+        return `${date.year}-${date.month}-${date.day}`;
+    }
+
+    ngOnInit() {
+        this.loadByCreatedDateBetween();
+    }
+
+    private onError(error) {
+        this.jhiAlertService.error(error.message, null, null);
+    }
+
+    onDateChange(date: NgbDateStruct) {
+        if (!this.fromDate && !this.toDate) {
+            this.fromDate = date;
+        } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
+            this.toDate = date;
+        } else {
+            this.toDate = null;
+            this.fromDate = date;
+        }
+        this.loadByCreatedDateBetween();
+    }
+
+    isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+    isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+    isFrom = date => equals(date, this.fromDate);
+    isTo = date => equals(date, this.toDate);
 }
