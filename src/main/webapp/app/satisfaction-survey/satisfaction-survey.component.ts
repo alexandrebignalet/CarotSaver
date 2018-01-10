@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Survey } from './survey.model';
 
 @Component({
     selector: 'satisfaction-survey',
@@ -8,4 +9,12 @@ import { Component, OnInit } from '@angular/core';
     ]
 
 })
-export class SatisfactionSurveyComponent{}
+export class SatisfactionSurveyComponent{
+    survey: Survey;
+
+    constructor(){}
+
+    submit(){
+        console.log(Survey);
+    }
+}

@@ -3,7 +3,9 @@ import { RouterModule } from '@angular/router';
 
 import { CarotSaverSharedModule } from '../shared';
 
-import { SURVEY_ROUTE, SatisfactionSurveyComponent } from './';
+import { SURVEY_ROUTE } from './satisfaction-survey.route';
+import {SatisfactionSurveyComponent} from './satisfaction-survey.component';
+import { SurveyItemComponent } from './survey-item/survey-item.component';
 
 @NgModule({
     imports: [
@@ -11,7 +13,8 @@ import { SURVEY_ROUTE, SatisfactionSurveyComponent } from './';
         RouterModule.forRoot([ SURVEY_ROUTE ], { useHash: true })
     ],
     declarations: [
-        SatisfactionSurveyComponent
+        SatisfactionSurveyComponent,
+        SurveyItemComponent
     ],
     entryComponents: [
     ],
