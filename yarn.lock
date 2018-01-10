@@ -287,6 +287,12 @@ amdefine@>=0.0.4, amdefine@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular2-multiselect-dropdown@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/angular2-multiselect-dropdown/-/angular2-multiselect-dropdown-2.3.0.tgz#e68c8522a8dd02338d2b32db1a4a80efe0ba5525"
+  dependencies:
+    font-awesome "*"
+
 angular2-template-loader@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
@@ -2996,7 +3002,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-font-awesome@4.7.0:
+font-awesome@*, font-awesome@4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
 

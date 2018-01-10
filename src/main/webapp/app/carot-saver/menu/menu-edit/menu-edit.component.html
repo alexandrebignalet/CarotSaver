@@ -1,0 +1,90 @@
+
+<div class="row">
+    <div class="col-4">
+        <div class="row">
+            <div class="col">
+                <h2>Menu creation</h2>
+            </div>
+        </div>
+        <form (ngSubmit)="onSubmit()" #menuForm="ngForm">
+            <div class="form-group">
+                <label for="principal">Entrée</label>
+                <div class="input-group">
+                    <select class="form-control" name="entreeSelect"
+                            id="entree"
+                            [(ngModel)]="selectedEntree">
+                        <option *ngFor="let entree of entrees;" [value]="entree.id">{{entree.name}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text" id="btnGroupAddon">
+                            <button type="button" (click)="showForm('entree')" class="btn btn-round btn-outline-success float-right">  <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="principal">Entrée</label>
+                <div class="input-group">
+                    <select class="form-control" name="principalSelect"
+                            id="principal"
+                            [(ngModel)]="selectedPrincipal">
+                        <option *ngFor="let principal of principals" [value]="principal.id">{{principal.name}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text" id="btnGroupAddon2">
+                            <button type="button" (click)="showForm('principal')" class="btn btn-round btn-outline-success float-right">  <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="principal">Dessert</label>
+                <div class="input-group">
+                    <select class="form-control" name="dessertSelect"
+                            id="dessert"
+                            [(ngModel)]="selectedDessert">
+                        <option *ngFor="let dessert of desserts" [value]="dessert.id">{{dessert.name}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text" id="btnGroupAddon3">
+                            <button type="button" (click)="showForm('dessert')" class="btn btn-round btn-outline-success float-right">  <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <div class="col-4" *ngIf="showDishForm">
+        <div class="row">
+            <div class="col">
+                <h2>Add {{ dishType }}
+                    <button (click)="closeForm()" class="btn btn-sm btn-round btn-outline float-right">  <i class="fa fa-times" aria-hidden="true"></i></button>
+
+                </h2>
+            </div>
+        </div>
+        <form (ngSubmit)="onSubmitDishForm()" #dishForm="ngForm">
+            <div class="form-group">
+                <label class="form-control-label" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       [(ngModel)]="dish.name"  />
+            </div>
+
+            <div class="form-group">
+                <label for="field_foodCategories">Food Categories</label>
+                <angular2-multiselect name="foodCategory" id="field_foodCategories" [data]="foodcategories" [(ngModel)]="dish.foodCategories" [settings]="dropdownSettings" >
+                    <c-item>
+                        <ng-template let-item="item">
+                            <label>{{item.itemName}}</label>
+                        </ng-template>
+                    </c-item>
+                </angular2-multiselect>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
