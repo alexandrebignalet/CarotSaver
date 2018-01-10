@@ -31,25 +31,23 @@ export class CarotSaverComponent {
     fromDate: NgbDateStruct;
     toDate: NgbDateStruct;
     meals: MealCs[];
-    public lineChartData:Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Evolution du gaspillage'}
-    ];
-    public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public lineChartOptions:any = {
-        responsive: true
-    };
-    public lineChartColors:Array<any> = [
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        }
-    ];
-    public lineChartLegend:boolean = true;
-    public lineChartType:string = 'line';
+    // public lineChartData:Array<any> = [{data: [''], label: 'Evolution du gaspillage'}];
+    // public lineChartLabels:Array<any> = [''];
+    // public lineChartOptions:any = {
+    //     responsive: true
+    // };
+    // public lineChartColors:Array<any> = [
+    //     { // grey
+    //         backgroundColor: 'rgba(148,159,177,0.2)',
+    //         borderColor: 'rgba(148,159,177,1)',
+    //         pointBackgroundColor: 'rgba(148,159,177,1)',
+    //         pointBorderColor: '#fff',
+    //         pointHoverBackgroundColor: '#fff',
+    //         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    //     }
+    // ];
+    // public lineChartLegend:boolean = true;
+    // public lineChartType:string = 'line';
 
     constructor(
         private calendar: NgbCalendar,
@@ -60,24 +58,20 @@ export class CarotSaverComponent {
         this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     }
 
-    private updateCharts() {
-        let _lineChartData:Array<any> = [ {data: this.meals.map((meal: MealCs) => {
-                let myMeal = new MealCs(meal.id, meal.nbPresent, meal.menu, meal.wasteMetric);
-                return myMeal.wasteMetric.getTotal();
-            }),
-            label: 'Evolution du gaspillage'}]
-        ;
-
-        let _lineChartLabels: Array<any> = this.meals.map((meal: MealCs) => meal.createdDate);
-
-        setTimeout(function () {
-            this.lineChartLabels = _lineChartLabels;
-            this.lineChartData = _lineChartData;
-            console.log(this.lineChartData, this.lineChartLabels);
-        }, 100);
-
-
-    }
+    // private updateCharts() {
+    //
+    //     this.lineChartLabels.length = 0;
+    //     for(let i = 0; i < this.meals.length; i++) {
+    //         this.lineChartLabels.push(this.meals[i].createdDate);
+    //     }
+    //
+    //     this.lineChartData = [ {data: this.meals.map((meal: MealCs) => {
+    //         let myMeal = new MealCs(meal.id, meal.nbPresent, meal.menu, meal.wasteMetric);
+    //         return myMeal.wasteMetric.getTotal();
+    //     }),
+    //         label: 'Evolution du gaspillage'}]
+    //     ;
+    // }
 
     loadByCreatedDateBetween() {
         if(!(this.fromDate && this.toDate)) return;
@@ -85,11 +79,12 @@ export class CarotSaverComponent {
         this.mealService.findByCreatedDateBetWeen(this.formatDate(this.fromDate), this.formatDate(this.toDate)).subscribe(
             (res: ResponseWrapper) => {
                 this.meals = res.json;
-                this.updateCharts();
+                // this.updateCharts();
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
     }
+
 
     private formatDate(date) {
         return `${date.year}-${date.month}-${date.day}`;

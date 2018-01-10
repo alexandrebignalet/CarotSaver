@@ -1,28 +1,32 @@
 <div class="row">
-<h2>Carot Saver</h2>
+    <h2>Carot Saver</h2>
+</div>
+<div class="row">
 
-    <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t"></ngb-datepicker>
+        <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t"></ngb-datepicker>
 
-    <ng-template #t let-date="date" let-focused="focused">
-      <span class="custom-day"
-            [class.focused]="focused"
-            [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-            [class.faded]="isHovered(date) || isInside(date)"
-            (mouseenter)="hoveredDate = date"
-            (mouseleave)="hoveredDate = null">
-        {{ date.day }}
-      </span>
-    </ng-template>
-
-    <div style="display: block;">
-        <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-    </div>
+        <ng-template #t let-date="date" let-focused="focused">
+              <span class="custom-day"
+                    [class.focused]="focused"
+                    [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+        </ng-template>
+</div>
+<div class="row">
+    <jhi-waste-evolution-between-dates [from]="fromDate" [to]="toDate" [meals]="meals"></jhi-waste-evolution-between-dates>
+    <!--<div style="display: block;">-->
+        <!--<canvas baseChart width="400" height="400"-->
+                <!--[datasets]="lineChartData"-->
+                <!--[labels]="lineChartLabels"-->
+                <!--[options]="lineChartOptions"-->
+                <!--[colors]="lineChartColors"-->
+                <!--[legend]="lineChartLegend"-->
+                <!--[chartType]="lineChartType"-->
+                <!--(chartHover)="chartHovered($event)"-->
+                <!--(chartClick)="chartClicked($event)"></canvas>-->
+    <!--</div>-->
 </div>
