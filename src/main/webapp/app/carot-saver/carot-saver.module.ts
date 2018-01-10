@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
 
 import { CarotSaverSharedModule } from '../shared';
 
@@ -10,7 +9,6 @@ import {DashboardModule} from "./dashboard/dashboard.module";
 
 @NgModule({
     imports: [
-        ChartsModule,
         CarotSaverSharedModule,
         MenuModule,
         DashboardModule,
@@ -18,10 +16,6 @@ import {DashboardModule} from "./dashboard/dashboard.module";
     ],
     declarations: [
         CarotSaverComponent,
-    ],
-    entryComponents: [
-    ],
-    providers: [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

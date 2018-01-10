@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import {ResponseWrapper} from "../shared/model/response-wrapper.model";
-import {MealCsService} from "../entities/meal/meal-cs.service";
-import {MealCs} from "../entities/meal/meal-cs.model";
+
+import {ResponseWrapper} from '../shared/model/response-wrapper.model';
 import {JhiAlertService } from 'ng-jhipster';
+
+import {MealCsService} from '../entities/meal/meal-cs.service';
+import {MealCs} from '../entities/meal/meal-cs.model';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
 one && two && two.year === one.year && two.month === one.month && two.day === one.day;
@@ -15,39 +17,19 @@ const before = (one: NgbDateStruct, two: NgbDateStruct) =>
 const after = (one: NgbDateStruct, two: NgbDateStruct) =>
     !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
         ? false : one.day > two.day : one.month > two.month : one.year > two.year;
-
 @Component({
-    selector: 'jhi-home',
+    selector: 'jhi-carot-saver',
     templateUrl: './carot-saver.component.html',
     styleUrls: [
         'carot-saver.scss'
     ]
-
 })
 export class CarotSaverComponent {
-
     hoveredDate: NgbDateStruct;
 
     fromDate: NgbDateStruct;
     toDate: NgbDateStruct;
     meals: MealCs[];
-    // public lineChartData:Array<any> = [{data: [''], label: 'Evolution du gaspillage'}];
-    // public lineChartLabels:Array<any> = [''];
-    // public lineChartOptions:any = {
-    //     responsive: true
-    // };
-    // public lineChartColors:Array<any> = [
-    //     { // grey
-    //         backgroundColor: 'rgba(148,159,177,0.2)',
-    //         borderColor: 'rgba(148,159,177,1)',
-    //         pointBackgroundColor: 'rgba(148,159,177,1)',
-    //         pointBorderColor: '#fff',
-    //         pointHoverBackgroundColor: '#fff',
-    //         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    //     }
-    // ];
-    // public lineChartLegend:boolean = true;
-    // public lineChartType:string = 'line';
 
     constructor(
         private calendar: NgbCalendar,
@@ -58,20 +40,9 @@ export class CarotSaverComponent {
         this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     }
 
-    // private updateCharts() {
-    //
-    //     this.lineChartLabels.length = 0;
-    //     for(let i = 0; i < this.meals.length; i++) {
-    //         this.lineChartLabels.push(this.meals[i].createdDate);
-    //     }
-    //
-    //     this.lineChartData = [ {data: this.meals.map((meal: MealCs) => {
-    //         let myMeal = new MealCs(meal.id, meal.nbPresent, meal.menu, meal.wasteMetric);
-    //         return myMeal.wasteMetric.getTotal();
-    //     }),
-    //         label: 'Evolution du gaspillage'}]
-    //     ;
-    // }
+    ngOnInit() {
+        this.loadByCreatedDateBetween();
+    }
 
     loadByCreatedDateBetween() {
         if(!(this.fromDate && this.toDate)) return;
@@ -79,19 +50,13 @@ export class CarotSaverComponent {
         this.mealService.findByCreatedDateBetWeen(this.formatDate(this.fromDate), this.formatDate(this.toDate)).subscribe(
             (res: ResponseWrapper) => {
                 this.meals = res.json;
-                // this.updateCharts();
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
-
     private formatDate(date) {
         return `${date.year}-${date.month}-${date.day}`;
-    }
-
-    ngOnInit() {
-        this.loadByCreatedDateBetween();
     }
 
     private onError(error) {
@@ -114,4 +79,43 @@ export class CarotSaverComponent {
     isInside = date => after(date, this.fromDate) && before(date, this.toDate);
     isFrom = date => equals(date, this.fromDate);
     isTo = date => equals(date, this.toDate);
+
+    public wasteEvolutionChartOpts = {
+        mapper: (meal: MealCs) => {
+            let myMeal = new MealCs(meal.id, meal.nbPresent, meal.menu, meal.wasteMetric);
+            return myMeal.wasteMetric.getTotal();
+        },
+        lineChartTitle: 'Evolution du gaspillage',
+        lineChartOptions: { responsive: true },
+        lineChartColors: [
+            { // grey
+                backgroundColor: 'rgba(148,159,177,0.2)',
+                borderColor: 'rgba(148,159,177,1)',
+                pointBackgroundColor: 'rgba(148,159,177,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            }
+        ],
+        lineChartLegend: true,
+        lineChartType: 'line'
+    };
+
+    public studentEvolutionChartOpts  = {
+        mapper: (meal: MealCs) => meal.nbPresent,
+        lineChartTitle: 'Evolution de la fréquentation',
+        lineChartOptions: { responsive: true },
+        lineChartColors: [
+            { // grey
+                backgroundColor: 'rgba(198,159,177,0.2)',
+                borderColor: 'rgba(198,159,177,1)',
+                pointBackgroundColor: 'rgba(198,159,177,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(198,159,177,0.8)'
+            }
+        ],
+        lineChartLegend: true,
+        lineChartType: 'line'
+    };
 }
