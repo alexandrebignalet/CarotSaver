@@ -1,1 +1,5 @@
-<survey-item></survey-item>
+<div *ngFor="let surveyItem of survey.menuArray;">
+    <survey-item [survey-item]="surveyItem"></survey-item>    
+ </div>
+ <input type="text" [(ngModel)]="survey.studentName">       
+ 

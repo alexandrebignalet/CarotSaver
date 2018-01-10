@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { SurveyItem } from './survey-item.model';
 import { Survey } from '../survey.model';
 import { NgModel } from '@angular/forms';
@@ -12,7 +12,7 @@ import { NgModel } from '@angular/forms';
 
 })
 export class SurveyItemComponent implements OnInit{
-    surveyItem: SurveyItem;
+    @Input() surveyItem: SurveyItem;
     constructor(){
 
     }

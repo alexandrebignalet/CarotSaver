@@ -10,11 +10,11 @@ import { Survey } from './survey.model';
 
 })
 export class SatisfactionSurveyComponent{
-    survey: Survey;
+    survey: Survey = new Survey();
 
     constructor(){}
 
     submit(){
-        console.log(Survey);
+        console.log(this.survey);
     }
 }
