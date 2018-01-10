@@ -9,10 +9,13 @@ import { Survey } from './survey.model';
     ]
 
 })
-export class SatisfactionSurveyComponent{
-    survey: Survey = new Survey();
+export class SatisfactionSurveyComponent implements OnInit{
+    survey: Survey;
 
     constructor(){}
+    ngOnInit(){
+        this.survey = new Survey();
+    }
 
     submit(){
         console.log(this.survey);

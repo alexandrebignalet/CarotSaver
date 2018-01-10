@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SurveyItem } from './survey-item.model';
 import { Survey } from '../survey.model';
 import { NgModel } from '@angular/forms';
+
 
 @Component({
     selector: 'survey-item',
@@ -13,13 +14,14 @@ import { NgModel } from '@angular/forms';
 })
 export class SurveyItemComponent implements OnInit{
     @Input() surveyItem: SurveyItem;
+    
     constructor(){
 
     }
 
-    ngOnInit() {
-        this.surveyItem = new SurveyItem("Salade", 0);
-    }
+    ngOnInit(){
+        console.log(this.surveyItem);
+    } 
 
     onSelectionChange(item) : void {
         this.surveyItem.rate = item;

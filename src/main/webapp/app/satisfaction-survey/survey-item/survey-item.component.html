@@ -1,22 +1,23 @@
-<div class="col-8">
+<div>
+    <h4>{{surveyItem.name}}</h4>
     <label>
-        <input name="quantity" type="radio" 
+        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
         (change)="onSelectionChange(1)"> Rien du tout
     </label>
     <label>
-        <input name="quantity" type="radio" 
+        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
         (change)="onSelectionChange(2)"> Pas trop
     </label>
     <label>
-        <input name="quantity" type="radio" 
+        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
         (change)="onSelectionChange(3)"> La moitié
     </label>
     <label>
-        <input name="quantity" type="radio" 
+        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
         (change)="onSelectionChange(4)"> Presque tout
     </label>
     <label>
-        <input name="quantity" type="radio" 
+        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
         (change)="onSelectionChange(5)"> Tout
     </label>
 </div>

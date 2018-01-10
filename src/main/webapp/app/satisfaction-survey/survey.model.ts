@@ -5,6 +5,7 @@ export class Survey{
     menuArray: Array<SurveyItem>;
 
     constructor(){
+        this.studentName = "";
         this.menuArray = [
             new SurveyItem("Salade", 0),
             new SurveyItem("Pizza", 0),
