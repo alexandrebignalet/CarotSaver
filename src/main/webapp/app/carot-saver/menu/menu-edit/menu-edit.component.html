@@ -76,7 +76,7 @@
 
             <div class="form-group">
                 <label for="field_foodCategories">Food Categories</label>
-                <angular2-multiselect name="foodCategory" id="field_foodCategories" [data]="foodcategories" [(ngModel)]="selectedItems" [settings]="dropdownSettings" >
+                <angular2-multiselect name="foodCategory" id="field_foodCategories" [data]="foodcategories" [(ngModel)]="dish.foodCategories" [settings]="dropdownSettings" >
                     <c-item>
                         <ng-template let-item="item">
                             <label>{{item.itemName}}</label>

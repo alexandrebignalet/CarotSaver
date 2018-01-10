@@ -67,7 +67,7 @@ export class MenuEditComponent implements OnInit, OnDestroy {
 
         this.dropdownSettings = {
             singleSelection: false,
-            text:"Select Countries",
+            text:"Select food categories",
             selectAllText:'Select All',
             unSelectAllText:'UnSelect All',
             enableSearchFilter: true,
@@ -112,16 +112,6 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         this.saveMenu();
     }
 
-    onSubmitDishForm() {
-        this.dish.type = this.getDishTypeEnum();
-
-    }
-
-    private getDishTypeEnum(): DishType {
-        if( this.dishType == 'entree') { return DishType.ENTREE }
-        if( this.dishType == 'principal') { return DishType.PRINCIPAL }
-        if( this.dishType == 'entree') { return DishType.DESSERT }
-    }
 
     showForm(type) {
         this.showDishForm = true;
@@ -141,6 +131,59 @@ export class MenuEditComponent implements OnInit, OnDestroy {
                 this.menuService.create(this.menu));
         }
     }
+
+    onSubmitDishForm() {
+        this.dish.type = this.getDishTypeEnum();
+        console.log(this.dish);
+        this.saveDish()
+
+    }
+
+    saveDish() {
+        this.isSaving = true;
+        if (this.dish.id !== undefined) {
+            this.subscribeToSaveDishResponse(
+                this.dishService.update(this.dish));
+        } else {
+            this.subscribeToSaveDishResponse(
+                this.dishService.create(this.dish));
+        }
+    }
+    private subscribeToSaveDishResponse(result: Observable<DishCs>) {
+        result.subscribe((res: DishCs) =>
+            this.onSaveDishSuccess(res), (res: Response) => this.onSaveError());
+    }
+
+    private onSaveDishSuccess(result: DishCs) {
+
+        this.eventManager.broadcast({ name: 'dishListModification', content: 'OK'});
+        this.isSaving = false;
+        this.dishes.push(result);
+
+        if( this.dish.type == DishType.ENTREE ) {
+            this.entrees.push(result);
+            this.selectedEntree = result.id;
+
+        }
+        if( this.dish.type == DishType.PRINCIPAL ) {
+            this.principals.push(result);
+            this.selectedPrincipal = result.id;
+        }
+        if( this.dish.type == DishType.DESSERT ) {
+            this.desserts.push(result);
+            this.selectedDessert = result.id;
+        }
+        this.dish = {};
+        this.showDishForm = false;
+    }
+
+
+    private getDishTypeEnum(): DishType {
+        if( this.dishType == 'entree') { return DishType.ENTREE }
+        if( this.dishType == 'principal') { return DishType.PRINCIPAL }
+        if( this.dishType == 'dessert') { return DishType.DESSERT }
+    }
+
 
     private onSaveSuccess(result: MenuCs) {
         this.eventManager.broadcast({ name: 'menuListModification', content: 'OK'});
