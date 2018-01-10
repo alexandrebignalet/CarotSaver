@@ -7,7 +7,7 @@ import {MenuCs} from "../../../entities/menu/menu-cs.model";
 import {MenuCsService} from "../../../entities/menu/menu-cs.service";
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../../shared';
 import {DishCsService} from "../../../entities/dish/dish-cs.service";
-import {DishCs} from "../../../entities/dish/dish-cs.model";
+import {DishCs, DishType} from "../../../entities/dish/dish-cs.model";
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {FoodCategoryCsService} from "../../../entities/food-category/food-category-cs.service";
@@ -109,7 +109,18 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         ];
 
         console.log(this.menu);
-        this.save();
+        this.saveMenu();
+    }
+
+    onSubmitDishForm() {
+        this.dish.type = this.getDishTypeEnum();
+
+    }
+
+    private getDishTypeEnum(): DishType {
+        if( this.dishType == 'entree') { return DishType.ENTREE }
+        if( this.dishType == 'principal') { return DishType.PRINCIPAL }
+        if( this.dishType == 'entree') { return DishType.DESSERT }
     }
 
     showForm(type) {
@@ -121,7 +132,7 @@ export class MenuEditComponent implements OnInit, OnDestroy {
         this.showDishForm = false
     }
 
-    save() {
+    saveMenu() {
         if (this.menu.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.menuService.update(this.menu));

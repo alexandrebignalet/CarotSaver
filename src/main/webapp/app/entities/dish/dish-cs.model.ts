@@ -3,7 +3,7 @@ import { BaseEntity } from './../../shared';
 export const enum DishType {
     'ENTREE',
     'PRINCIPAL',
-    'DESERT',
+    'DESSERT',
     'OTHER'
 }
 
