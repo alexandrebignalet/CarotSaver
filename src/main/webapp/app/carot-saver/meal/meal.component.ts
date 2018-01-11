@@ -3,9 +3,9 @@ import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
 import {MenuCs} from "../../entities/menu/menu-cs.model";
-import {MenuCsService} from "../../entities/menu/menu-cs.service";
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../shared';
 import {Router} from '@angular/router';
+import {MealCsService} from "../../entities/meal/meal-cs.service";
 
 @Component({
     selector: 'jhi-home',
@@ -16,12 +16,12 @@ import {Router} from '@angular/router';
 
 })
 export class MealComponent implements OnInit, OnDestroy {
-    menus: any;
+    meals: any;
     currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
-        private menuService: MenuCsService,
+        private mealService: MealCsService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
@@ -30,7 +30,7 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.menuService.query().subscribe(
+        this.mealService.query().subscribe(
             (res: ResponseWrapper) => {
 
                 this.parseData(res.json);
@@ -66,12 +66,17 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     private parseData(data) {
-        for(let item of data) {
-            item.entree = item.dishes.filter(dish => dish.type == "ENTREE")[0];
-            item.principal = item.dishes.filter(dish => dish.type == "PRINCIPAL")[0];
-            item.dessert = item.dishes.filter(dish => dish.type == "DESSERT")[0];
+        this.meals = data;
+        for(let meal of data) {
+           /* for(let item of meal.menu.dishes) {
+                item.entree = item.dishes.filter(dish => dish.type == "ENTREE")[0];
+                item.principal = item.dishes.filter(dish => dish.type == "PRINCIPAL")[0];
+                item.dessert = item.dishes.filter(dish => dish.type == "DESSERT")[0];
+            }*/
         }
-        this.menus = data;
+
+        this.meals = data;
+        console.log(data);
     }
 
 
