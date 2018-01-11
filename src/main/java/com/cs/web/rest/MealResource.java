@@ -11,10 +11,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -102,6 +107,25 @@ public class MealResource {
         log.debug("REST request to get all Meals between dates");
 
         return mealService.findByCreatedDateBetween(startDate.toInstant(), endDate.toInstant());
+    }
+
+    /**
+     * GET  /meals?date={date} : get the meal of a given date.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the meal in body
+     */
+    @GetMapping("/meals/date/{date}")
+    @Timed
+    public ResponseEntity<Meal> getMealByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        log.debug("REST request to get the Meal of a given date");
+
+        ZonedDateTime startOfDay = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate().atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime tomorrowStartOfDay = startOfDay.plusDays(1);
+
+        List<Meal> meals = mealService.findByCreatedDateBetween(startOfDay.toInstant(), tomorrowStartOfDay.toInstant());
+        Meal meal = meals.isEmpty() ?  null : meals.get(0);
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(meal));
     }
 
     /**
