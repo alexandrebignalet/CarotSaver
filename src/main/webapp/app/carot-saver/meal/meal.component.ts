@@ -58,7 +58,7 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     goToEdit() {
-        this.router.navigate(['/carot-saver-menu-edit'])
+        this.router.navigate(['/carot-saver-meal-edit'])
     }
 
     private onError(error) {
