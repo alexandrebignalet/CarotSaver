@@ -18,6 +18,7 @@ import java.util.List;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findMealsByCreatedDateBetween(Instant startDate, Instant endDate);
+    Meal findMealByCreatedDate(Instant date);
 
     @Query(value="SELECT meal.*, sum(waste.plastic+waste.green+waste.other)/count(meal.id) as sum_w "+
         "from MEAL as meal " +

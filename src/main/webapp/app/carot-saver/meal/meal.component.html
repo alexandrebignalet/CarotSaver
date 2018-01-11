@@ -8,45 +8,8 @@
 </div>
 <div class="row">
     <div class="col-8">
-        <div *ngIf="!meals || meals.length == 0">
-            Zero
-        </div>
-        <div *ngIf="meals && meals.length > 0">
-            <table class="table table">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Nombre personnes</th>
-                    <th>Menu</th>
-                    <th>Gasp. Plastic</th>
-                    <th>Gasp. Green</th>
-                    <th>Gasp. Other</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of meals; trackBy: trackId">
-                    <td>
-                        {{ item.createdDate | date:"dd/MM/yy" }}
-                    </td>
-                    <td>
-                        <span *ngIf="item.entree">{{ item.entree.name }}</span>
-                    </td>
-                    <td>
-                        <span *ngIf="item.principal">{{ item.principal.name }}</span>
-                    </td>
-                    <td>
-                        <span *ngIf="item.dessert">{{ item.dessert.name }}</span>
-                    </td>
-                    <td>
+        <ngb-datepicker #dp [(ngModel)]="model"></ngb-datepicker>
 
-                    </td>
-                    <td>
-                        Les actions
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 
 </div>
