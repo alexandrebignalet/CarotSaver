@@ -14,7 +14,7 @@ import {FoodCategoryCsService} from "../../../entities/food-category/food-catego
 import {FoodCategoryCs} from "../../../entities/food-category/food-category-cs.model";
 
 @Component({
-    selector: 'jhi-home',
+    selector: 'cs-menu-edit',
     templateUrl: './menu-edit.component.html',
     styleUrls: [
         '../menu.scss'

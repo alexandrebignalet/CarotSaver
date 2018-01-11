@@ -5,6 +5,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
 import { CarotSaverSharedModule } from '../../shared';
 import {MEAL_ROUTE} from "./meal.route";
 import {MealComponent} from "./meal.component";
+import {MealEditComponent} from "./meal-edit/meal-edit.component";
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {MealComponent} from "./meal.component";
     ],
     declarations: [
         MealComponent,
+        MealEditComponent
     ],
     entryComponents: [
     ],

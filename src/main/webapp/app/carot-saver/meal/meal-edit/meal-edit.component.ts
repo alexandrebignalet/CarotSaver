@@ -14,14 +14,14 @@ import {FoodCategoryCsService} from "../../../entities/food-category/food-catego
 import {FoodCategoryCs} from "../../../entities/food-category/food-category-cs.model";
 
 @Component({
-    selector: 'jhi-home',
-    templateUrl: './menu-edit.component.html',
+    selector: 'cs-meal-edit',
+    templateUrl: './meal-edit.component.html',
     styleUrls: [
-        '../menu.scss'
+        '../meal.scss'
     ]
 
 })
-export class MenuEditComponent implements OnInit, OnDestroy {
+export class MealEditComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     isSaving: boolean;
