@@ -1,6 +1,9 @@
 package com.cs.service;
 
 import com.cs.domain.Meal;
+
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -22,6 +25,13 @@ public interface MealService {
      *  @return the list of entities
      */
     List<Meal> findAll();
+
+    /**
+     *  Get all the meals between dates.
+     *
+     *  @return the list of entities
+     */
+    List<Meal> findByCreatedDateBetween(Instant startDate, Instant endDate);
 
     /**
      *  Get the "id" meal.

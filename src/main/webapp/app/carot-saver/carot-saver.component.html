@@ -1,3 +1,20 @@
 <div class="row">
-<h2>Carot Saver</h2>
+    <h2>Carot Saver</h2>
+</div>
+<ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+</ngb-datepicker>
+
+<ng-template #t let-date="date" let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
+<div class="row">
+    <jhi-line-chart-meals [from]="fromDate" [to]="toDate" [meals]="meals" [options]="wasteEvolutionChartOpts"></jhi-line-chart-meals>
+    <jhi-line-chart-meals [from]="fromDate" [to]="toDate" [meals]="meals" [options]="studentEvolutionChartOpts"></jhi-line-chart-meals>
 </div>

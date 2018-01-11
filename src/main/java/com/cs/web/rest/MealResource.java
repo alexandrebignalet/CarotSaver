@@ -7,12 +7,15 @@ import com.cs.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +88,21 @@ public class MealResource {
     public List<Meal> getAllMeals() {
         log.debug("REST request to get all Meals");
         return mealService.findAll();
-        }
+    }
+
+    /**
+     * GET  /meals/{startDate}/{endDate} : get all the meals between dates.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of meals in body
+     */
+    @GetMapping("/meals/{startDate}/{endDate}")
+    @Timed
+    public List<Meal> getAllMeals(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                  @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        log.debug("REST request to get all Meals between dates");
+
+        return mealService.findByCreatedDateBetween(startDate.toInstant(), endDate.toInstant());
+    }
 
     /**
      * GET  /meals/:id : get the "id" meal.

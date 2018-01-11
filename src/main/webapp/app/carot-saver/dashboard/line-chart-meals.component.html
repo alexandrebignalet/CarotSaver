@@ -1,0 +1,10 @@
+<canvas baseChart width="500" height="500"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="chartOpts.lineChartOptions"
+        [colors]="chartOpts.lineChartColors"
+        [legend]="chartOpts.lineChartLegend"
+        [chartType]="chartOpts.lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+
