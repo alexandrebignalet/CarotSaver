@@ -20,11 +20,20 @@ export class SurveyItemComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log(this.surveyItem);
+        
     } 
 
-    onSelectionChange(item) : void {
+    onSelectionChange(item): void {
         this.surveyItem.rate = item;
-        console.log(this.surveyItem.rate);
+    }
+
+    setFeedback(str): void {
+        let img = str === 'up' ? "b20727af92cb5ce57b6d75978779f3c3" : "5fe6ce54cb08deee03cdf9aae815b166";
+        let icon = document.getElementById(this.surveyItem.name);
+        icon.setAttribute("style", "max-width:100%; height:auto;");
+        icon.setAttribute("class", "img-thumbnail");
+        icon.setAttribute("src", "content/" + img + ".jpg");
+        this.surveyItem.liked =
+            str === 'up' ? true : false;
     }
 }

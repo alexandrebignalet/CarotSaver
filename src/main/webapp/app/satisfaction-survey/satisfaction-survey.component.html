@@ -1,9 +1,11 @@
 <div class="row">
+    <label>Entrez votre nom:
+        <input type="text" placeholder="Nom de l'étudiant" [(ngModel)]="survey.studentName">
+    </label>
     <div class="col-12" *ngFor="let item of survey.menuArray">
         <survey-item [surveyItem]="item"></survey-item>
     </div>
     <div class="col-12">
-        <input type="text" [(ngModel)]="survey.studentName">
         <button class="btn btn-success" (click)=submit() type="submit">Envoyer</button>
     </div>
 </div>

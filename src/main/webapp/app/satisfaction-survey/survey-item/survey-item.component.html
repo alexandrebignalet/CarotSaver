@@ -1,23 +1,50 @@
-<div>
-    <h4>{{surveyItem.name}}</h4>
-    <label>
-        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-        (change)="onSelectionChange(1)"> Rien du tout
-    </label>
-    <label>
-        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-        (change)="onSelectionChange(2)"> Pas trop
-    </label>
-    <label>
-        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-        (change)="onSelectionChange(3)"> La moitié
-    </label>
-    <label>
-        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-        (change)="onSelectionChange(4)"> Presque tout
-    </label>
-    <label>
-        <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-        (change)="onSelectionChange(5)"> Tout
-    </label>
+<h4>{{surveyItem.name}}</h4>
+<div class="row">
+    <div class="col-1">
+        <i class="fa fa-cutlery fa-4x"></i>
+    </div>
+    <div class="col-1">
+        <img id="{{surveyItem.name}}">
+    </div>
+    <div class="col-8">
+        <label>
+            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
+            (change)="onSelectionChange(1)"> Rien du tout
+        </label>
+        <label>
+            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
+            (change)="onSelectionChange(2)"> Pas trop
+        </label>
+        <label>
+            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
+            (change)="onSelectionChange(3)"> La moitié
+        </label>
+        <label>
+            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
+            (change)="onSelectionChange(4)"> Presque tout
+        </label>
+        <label>
+            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
+            (change)="onSelectionChange(5)"> Tout
+        </label>
+        <div class="row">
+            <p>Avez-vous apprécié ce plat?</p>
+            <div class="col-12 btn-group" role="group">
+                <button type="button" class="btn" 
+                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
+                (click)="setFeedback('up')">
+                    <img class="img-fluid" 
+                    style="max-width:100%; height:auto;" 
+                    src="../../../content/images/carotsaver-up.jpg">
+                </button>
+                <button type="button" class="btn" 
+                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
+                (click)="setFeedback('down')">
+                    <img class="img-fluid" 
+                    style="max-width:100%; height:auto;" 
+                    src="../../../content/images/carotsaver-down.jpg">
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

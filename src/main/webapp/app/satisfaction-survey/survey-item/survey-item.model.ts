@@ -1,8 +1,9 @@
 export class SurveyItem{
-    name: String;
+    name: string;
     rate: Number;
+    liked: boolean = false;
 
-    constructor(_name: String, _rate: Number){
+    constructor(_name: string, _rate: Number){
         this.name = _name;
         this.rate = _rate;
     }
