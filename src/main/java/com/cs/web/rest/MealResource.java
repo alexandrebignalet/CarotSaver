@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -50,10 +51,13 @@ public class MealResource {
      */
     @PostMapping("/meals")
     @Timed
-    public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) throws URISyntaxException {
+    public ResponseEntity<Meal> createMeal(@RequestBody @Valid Meal meal) throws URISyntaxException {
         log.debug("REST request to save Meal : {}", meal);
         if (meal.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new meal cannot already have an ID")).body(null);
+        }
+        if(!mealService.canBeCreated()) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "alreadyregisterdtoday", "A meal has already been added today")).body(null);
         }
         Meal result = mealService.save(meal);
         return ResponseEntity.created(new URI("/api/meals/" + result.getId()))
@@ -118,14 +122,7 @@ public class MealResource {
     @Timed
     public ResponseEntity<Meal> getMealByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         log.debug("REST request to get the Meal of a given date");
-
-        ZonedDateTime startOfDay = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate().atStartOfDay(ZoneId.systemDefault());
-        ZonedDateTime tomorrowStartOfDay = startOfDay.plusDays(1);
-
-        List<Meal> meals = mealService.findByCreatedDateBetween(startOfDay.toInstant(), tomorrowStartOfDay.toInstant());
-        Meal meal = meals.isEmpty() ?  null : meals.get(0);
-
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(meal));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mealService.getMealOfTheDay(date)));
     }
 
     /**

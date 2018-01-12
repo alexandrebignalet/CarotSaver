@@ -4,6 +4,7 @@ import com.cs.domain.Meal;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,20 @@ public interface MealService {
      */
     Meal save(Meal meal);
 
+    /**
+     * Check if a Meal can be created
+     * Only one Meal can be persisted by day
+     *
+     * @return boolean
+     */
+    Boolean canBeCreated();
+    /**
+     * Get the Meal of a given day
+     *
+     * @param date of the day
+     * @return the persisted entity
+     */
+    Meal getMealOfTheDay(Date date);
     /**
      *  Get all the meals.
      *

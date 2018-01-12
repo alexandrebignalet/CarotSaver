@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +40,20 @@ public class MealServiceImpl implements MealService {
     public Meal save(Meal meal) {
         log.debug("Request to save Meal : {}", meal);
         return mealRepository.save(meal);
+    }
+
+    public Boolean canBeCreated() {
+        Date date = new Date();
+        log.debug("Meal can be created for the " + date.toString() + "?");
+        return getMealOfTheDay(date) == null;
+    }
+
+    public Meal getMealOfTheDay(Date date) {
+        ZonedDateTime startOfDay = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate().atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime tomorrowStartOfDay = startOfDay.plusDays(1);
+
+        List<Meal> meals = findByCreatedDateBetween(startOfDay.toInstant(), tomorrowStartOfDay.toInstant());
+        return meals.isEmpty() ?  null : meals.get(0);
     }
 
     /**
