@@ -19,17 +19,17 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" for="field_menu">Menu</label>
-            <select class="form-control" id="field_menu" name="menu" [(ngModel)]="meal.menu">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="menuOption.id === meal.menu?.id ? meal.menu : menuOption" *ngFor="let menuOption of menus; trackBy: trackMenuById">{{menuOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" for="field_wasteMetric">Waste Metric</label>
             <select class="form-control" id="field_wasteMetric" name="wasteMetric" [(ngModel)]="meal.wasteMetric">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="wasteMetricOption.id === meal.wasteMetric?.id ? meal.wasteMetric : wasteMetricOption" *ngFor="let wasteMetricOption of wastemetrics; trackBy: trackWasteMetricById">{{wasteMetricOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_menu">Menu</label>
+            <select class="form-control" id="field_menu" name="menu" [(ngModel)]="meal.menu" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="menuOption.id === meal.menu?.id ? meal.menu : menuOption" *ngFor="let menuOption of menus; trackBy: trackMenuById">{{menuOption.id}}</option>
             </select>
         </div>
     </div>

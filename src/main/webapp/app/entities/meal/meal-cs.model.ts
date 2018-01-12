@@ -1,5 +1,5 @@
 import { BaseEntity } from './../../shared';
-import {WasteMetricCs} from "../waste-metric/waste-metric-cs.model";
+import {WasteMetricCs} from "../waste-metric";
 
 export class MealCs implements BaseEntity {
     constructor(
