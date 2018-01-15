@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.cs.domain.FoodCategory;
 import com.cs.service.FoodCategoryService;
 import com.cs.web.rest.util.HeaderUtil;
+import com.cs.service.dto.FoodCategoryCriteria;
+import com.cs.service.FoodCategoryQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +31,11 @@ public class FoodCategoryResource {
 
     private final FoodCategoryService foodCategoryService;
 
-    public FoodCategoryResource(FoodCategoryService foodCategoryService) {
+    private final FoodCategoryQueryService foodCategoryQueryService;
+
+    public FoodCategoryResource(FoodCategoryService foodCategoryService, FoodCategoryQueryService foodCategoryQueryService) {
         this.foodCategoryService = foodCategoryService;
+        this.foodCategoryQueryService = foodCategoryQueryService;
     }
 
     /**
@@ -78,14 +83,16 @@ public class FoodCategoryResource {
     /**
      * GET  /food-categories : get all the foodCategories.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of foodCategories in body
      */
     @GetMapping("/food-categories")
     @Timed
-    public List<FoodCategory> getAllFoodCategories() {
-        log.debug("REST request to get all FoodCategories");
-        return foodCategoryService.findAll();
-        }
+    public ResponseEntity<List<FoodCategory>> getAllFoodCategories(FoodCategoryCriteria criteria) {
+        log.debug("REST request to get FoodCategories by criteria: {}", criteria);
+        List<FoodCategory> entityList = foodCategoryQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /food-categories/:id : get the "id" foodCategory.

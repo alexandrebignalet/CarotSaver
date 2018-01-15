@@ -105,6 +105,7 @@ public class Meal extends AbstractAuditingEntity implements Serializable {
         return "Meal{" +
             "id=" + getId() +
             ", nbPresent='" + getNbPresent() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
             "}";
     }
 }

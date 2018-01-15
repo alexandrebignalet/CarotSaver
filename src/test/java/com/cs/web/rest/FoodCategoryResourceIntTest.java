@@ -6,6 +6,8 @@ import com.cs.domain.FoodCategory;
 import com.cs.repository.FoodCategoryRepository;
 import com.cs.service.FoodCategoryService;
 import com.cs.web.rest.errors.ExceptionTranslator;
+import com.cs.service.dto.FoodCategoryCriteria;
+import com.cs.service.FoodCategoryQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +50,9 @@ public class FoodCategoryResourceIntTest {
     private FoodCategoryService foodCategoryService;
 
     @Autowired
+    private FoodCategoryQueryService foodCategoryQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -66,7 +71,7 @@ public class FoodCategoryResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final FoodCategoryResource foodCategoryResource = new FoodCategoryResource(foodCategoryService);
+        final FoodCategoryResource foodCategoryResource = new FoodCategoryResource(foodCategoryService, foodCategoryQueryService);
         this.restFoodCategoryMockMvc = MockMvcBuilders.standaloneSetup(foodCategoryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -154,6 +159,68 @@ public class FoodCategoryResourceIntTest {
             .andExpect(jsonPath("$.id").value(foodCategory.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
+
+    @Test
+    @Transactional
+    public void getAllFoodCategoriesByNameIsEqualToSomething() throws Exception {
+        // Initialize the database
+        foodCategoryRepository.saveAndFlush(foodCategory);
+
+        // Get all the foodCategoryList where name equals to DEFAULT_NAME
+        defaultFoodCategoryShouldBeFound("name.equals=" + DEFAULT_NAME);
+
+        // Get all the foodCategoryList where name equals to UPDATED_NAME
+        defaultFoodCategoryShouldNotBeFound("name.equals=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFoodCategoriesByNameIsInShouldWork() throws Exception {
+        // Initialize the database
+        foodCategoryRepository.saveAndFlush(foodCategory);
+
+        // Get all the foodCategoryList where name in DEFAULT_NAME or UPDATED_NAME
+        defaultFoodCategoryShouldBeFound("name.in=" + DEFAULT_NAME + "," + UPDATED_NAME);
+
+        // Get all the foodCategoryList where name equals to UPDATED_NAME
+        defaultFoodCategoryShouldNotBeFound("name.in=" + UPDATED_NAME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFoodCategoriesByNameIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        foodCategoryRepository.saveAndFlush(foodCategory);
+
+        // Get all the foodCategoryList where name is not null
+        defaultFoodCategoryShouldBeFound("name.specified=true");
+
+        // Get all the foodCategoryList where name is null
+        defaultFoodCategoryShouldNotBeFound("name.specified=false");
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultFoodCategoryShouldBeFound(String filter) throws Exception {
+        restFoodCategoryMockMvc.perform(get("/api/food-categories?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(foodCategory.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultFoodCategoryShouldNotBeFound(String filter) throws Exception {
+        restFoodCategoryMockMvc.perform(get("/api/food-categories?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
 
     @Test
     @Transactional

@@ -1,6 +1,7 @@
 package com.cs.service;
 
 import com.cs.domain.Meal;
+import com.cs.service.dto.MealWasteMetricDTO;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,6 +28,19 @@ public interface MealService {
      * @return boolean
      */
     Boolean canBeCreated();
+
+    /**
+     * Get the top ten Meal which were the less waster
+     * @return meals
+     */
+    List<Meal> getTopWaster(int limit, Boolean more);
+
+    /**
+     * Give some metrics about meal wasting
+     * @return waste metrics
+     */
+    MealWasteMetricDTO getMealWasteMetric();
+
     /**
      * Get the Meal of a given day
      *

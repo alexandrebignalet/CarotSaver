@@ -3,6 +3,7 @@ package com.cs.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.cs.domain.Meal;
 import com.cs.service.MealService;
+import com.cs.service.dto.MealWasteMetricDTO;
 import com.cs.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -125,6 +126,13 @@ public class MealResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mealService.getMealOfTheDay(date)));
     }
 
+    @GetMapping("/meals/waste-metrics")
+    @Timed
+    public ResponseEntity<MealWasteMetricDTO> getMealWasteMetric() {
+        log.debug("REST request to get the Meal waste metrics");
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mealService.getMealWasteMetric()));
+    }
+
     /**
      * GET  /meals/:id : get the "id" meal.
      *
@@ -152,4 +160,13 @@ public class MealResource {
         mealService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/meals/top-ten-waster")
+    @Timed
+    public List<Meal> getTopTenWaster(@RequestParam Boolean more) {
+        log.debug("REST request to get top ten " + (more ? "more" : "less") +" waster meals");
+        return this.mealService.getTopWaster(10, more);
+    }
+
+
 }

@@ -3,11 +3,13 @@ package com.cs.service.impl;
 import com.cs.service.MenuService;
 import com.cs.domain.Menu;
 import com.cs.repository.MenuRepository;
+import com.cs.repository.projection.MenuCounterPerFoodCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
 
     private final Logger log = LoggerFactory.getLogger(MenuServiceImpl.class);
 
@@ -37,6 +39,11 @@ public class MenuServiceImpl implements MenuService{
         return menuRepository.save(menu);
     }
 
+
+    public List<MenuCounterPerFoodCategory> findMenuRepartitionByFoodCategory(Instant startDate, Instant endDate) {
+        log.debug("Request find category repartition by Menu");
+        return menuRepository.findByCreatedDateBetween(startDate, endDate);
+    }
     /**
      *  Get all the menus.
      *
