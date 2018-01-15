@@ -1,18 +1,39 @@
-<div class="row p-b">
-    <div class="col-8">
-        <h2>Dashboard menu <button type="button" (click)="goToEdit()" class="btn btn-outline-success float-right">
-            Créer un menu
-        </button></h2>
 
-    </div>
-</div>
 <div class="row">
     <div class="col-3">
         <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="onDateChange($event)"  ></ngb-datepicker>
 
     </div>
-    <div class="col">
+    <div class="col-6">
         <cs-menu-edit></cs-menu-edit>
+    </div>
+    <div class="col-3">
+        <form action="">
+            <div class="form-group row">
+                <label for="input-nb-personnes" class="col-8 col-form-label">Nombre personnes</label>
+                <div class="col-4">
+                    <input class="form-control" name="b" type="text" [(ngModel)]="meal.nbParticipant" id="input-nb-personnes">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="input-waste-entree" class="col-8 col-form-label">Plastique</label>
+                <div class="col-4">
+                    <input class="form-control" name="a" type="text" [(ngModel)]="meal.wasteMetric.plastic" id="input-waste-entree">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="input-waste-principal" class="col-8 col-form-label">Vert</label>
+                <div class="col-4">
+                    <input class="form-control" name="c" type="text" [(ngModel)]="meal.wasteMetric.green" id="input-waste-principal">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="input-waste-dessert" class="col-8 col-form-label">Autre</label>
+                <div class="col-4">
+                    <input class="form-control" name="d" type="text" [(ngModel)]="meal.wasteMetric.other" id="input-waste-dessert">
+                </div>
+            </div>
+        </form>
     </div>
 
 

@@ -7,6 +7,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService 
 import {Router} from '@angular/router';
 import {MealCsService} from "../../entities/meal/meal-cs.service";
 import {MenuEditComponent} from "../menu/menu-edit/menu-edit.component";
+import {MenuCsService} from "../../entities/menu/menu-cs.service";
 
 @Component({
     selector: 'meal-component',
@@ -25,6 +26,7 @@ export class MealComponent implements OnInit, OnDestroy {
 
     constructor(
         private mealService: MealCsService,
+        private menuService: MenuCsService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
@@ -41,8 +43,13 @@ export class MealComponent implements OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onError(res.json)
         );
     }
+
     ngOnInit() {
         this.model = {};
+        this.meal = {
+            menu: {},
+            wasteMetric: {}
+        };
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
@@ -75,16 +82,20 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     onDateChange($event) {
-        console.log($event);
-
         let date = this.getFormattedDate();
 
-        this.mealService.findByCreatedDate(date).subscribe(
-            (res) => {
-                console.log(res);
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
-        );
+        this.mealService.findByCreatedDate(date)
+
+            .mergeMap( meal => {
+                return this.menuService.find(meal.menu.id)
+            })
+            .subscribe(
+                (res) => {
+                    console.log(res);
+                },
+                (res: ResponseWrapper) => this.onError(res.json)
+            )
+
     }
 
 
