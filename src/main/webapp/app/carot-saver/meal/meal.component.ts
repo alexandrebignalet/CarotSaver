@@ -40,12 +40,18 @@ export class MealComponent implements OnInit, OnDestroy {
         );
     }
     ngOnInit() {
+        this.model = {};
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInMenus();
+
+
+
     }
+
+
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
@@ -66,9 +72,32 @@ export class MealComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    onSelect($event) {
-        console.log('Select');
-        console.log(this.model);
+    onDateChange($event) {
+        console.log($event);
+
+        let date = this.getFormattedDate();
+
+        this.mealService.findByCreatedDate(date).subscribe(
+            (res) => {
+                console.log(res);
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+    }
+
+
+
+    getFormattedDate() {
+
+        if(this.model.day) {
+            let formattedDay = this.model.day.toString().length == 1 ? '0' + this.model.day : this.model.day;
+            let formattedMonth = this.model.month.toString().length == 1 ? '0' + this.model.month : this.model.month;
+            let date = `${this.model.year}-${formattedMonth}-${formattedDay}`;
+
+            return date;
+        }
+
+
     }
 
     private parseData(data) {

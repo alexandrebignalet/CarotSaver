@@ -59,7 +59,8 @@ export class MealCsService {
     }
 
     findByCreatedDate(date) : Observable<MealCs> {
-        return this.http.get(`${this.resourceUrl}/${date}`).map((res: Response) => {
+
+        return this.http.get(`${this.resourceUrl}/date/${date}`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });
