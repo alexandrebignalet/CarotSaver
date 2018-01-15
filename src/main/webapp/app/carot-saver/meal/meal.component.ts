@@ -18,6 +18,7 @@ import {MealCsService} from "../../entities/meal/meal-cs.service";
 export class MealComponent implements OnInit, OnDestroy {
     meals: any;
     currentAccount: any;
+    model: any;
     eventSubscriber: Subscription;
 
     constructor(
@@ -63,6 +64,11 @@ export class MealComponent implements OnInit, OnDestroy {
 
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    onSelect($event) {
+        console.log('Select');
+        console.log(this.model);
     }
 
     private parseData(data) {
