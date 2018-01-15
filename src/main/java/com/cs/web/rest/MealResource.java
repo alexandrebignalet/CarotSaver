@@ -3,6 +3,7 @@ package com.cs.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.cs.domain.Meal;
 import com.cs.service.MealService;
+import com.cs.service.dto.MealWasteMetricDTO;
 import com.cs.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -50,10 +52,13 @@ public class MealResource {
      */
     @PostMapping("/meals")
     @Timed
-    public ResponseEntity<Meal> createMeal(@RequestBody Meal meal) throws URISyntaxException {
+    public ResponseEntity<Meal> createMeal(@RequestBody @Valid Meal meal) throws URISyntaxException {
         log.debug("REST request to save Meal : {}", meal);
         if (meal.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new meal cannot already have an ID")).body(null);
+        }
+        if(!mealService.canBeCreated()) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "alreadyregisterdtoday", "A meal has already been added today")).body(null);
         }
         Meal result = mealService.save(meal);
         return ResponseEntity.created(new URI("/api/meals/" + result.getId()))
@@ -118,14 +123,14 @@ public class MealResource {
     @Timed
     public ResponseEntity<Meal> getMealByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         log.debug("REST request to get the Meal of a given date");
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mealService.getMealOfTheDay(date)));
+    }
 
-        ZonedDateTime startOfDay = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate().atStartOfDay(ZoneId.systemDefault());
-        ZonedDateTime tomorrowStartOfDay = startOfDay.plusDays(1);
-
-        List<Meal> meals = mealService.findByCreatedDateBetween(startOfDay.toInstant(), tomorrowStartOfDay.toInstant());
-        Meal meal = meals.isEmpty() ?  null : meals.get(0);
-
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(meal));
+    @GetMapping("/meals/waste-metrics")
+    @Timed
+    public ResponseEntity<MealWasteMetricDTO> getMealWasteMetric() {
+        log.debug("REST request to get the Meal waste metrics");
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mealService.getMealWasteMetric()));
     }
 
     /**
@@ -155,4 +160,13 @@ public class MealResource {
         mealService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/meals/top-ten-waster")
+    @Timed
+    public List<Meal> getTopTenWaster(@RequestParam Boolean more) {
+        log.debug("REST request to get top ten " + (more ? "more" : "less") +" waster meals");
+        return this.mealService.getTopWaster(10, more);
+    }
+
+
 }

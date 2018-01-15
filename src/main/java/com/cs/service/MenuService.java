@@ -1,6 +1,9 @@
 package com.cs.service;
 
 import com.cs.domain.Menu;
+import com.cs.repository.projection.MenuCounterPerFoodCategory;
+
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -15,6 +18,8 @@ public interface MenuService {
      * @return the persisted entity
      */
     Menu save(Menu menu);
+
+    List<MenuCounterPerFoodCategory> findMenuRepartitionByFoodCategory(Instant startDate, Instant endDate);
 
     /**
      *  Get all the menus.

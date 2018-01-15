@@ -9,8 +9,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { MealCs } from './meal-cs.model';
 import { MealCsPopupService } from './meal-cs-popup.service';
 import { MealCsService } from './meal-cs.service';
-import { MenuCs, MenuCsService } from '../menu';
 import { WasteMetricCs, WasteMetricCsService } from '../waste-metric';
+import { MenuCs, MenuCsService } from '../menu';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -22,35 +22,22 @@ export class MealCsDialogComponent implements OnInit {
     meal: MealCs;
     isSaving: boolean;
 
-    menus: MenuCs[];
-
     wastemetrics: WasteMetricCs[];
+
+    menus: MenuCs[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private mealService: MealCsService,
-        private menuService: MenuCsService,
         private wasteMetricService: WasteMetricCsService,
+        private menuService: MenuCsService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.menuService
-            .query({filter: 'meal-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.meal.menu || !this.meal.menu.id) {
-                    this.menus = res.json;
-                } else {
-                    this.menuService
-                        .find(this.meal.menu.id)
-                        .subscribe((subRes: MenuCs) => {
-                            this.menus = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
         this.wasteMetricService
             .query({filter: 'meal-is-null'})
             .subscribe((res: ResponseWrapper) => {
@@ -64,6 +51,8 @@ export class MealCsDialogComponent implements OnInit {
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));
+        this.menuService.query()
+            .subscribe((res: ResponseWrapper) => { this.menus = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -100,11 +89,11 @@ export class MealCsDialogComponent implements OnInit {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    trackMenuById(index: number, item: MenuCs) {
+    trackWasteMetricById(index: number, item: WasteMetricCs) {
         return item.id;
     }
 
-    trackWasteMetricById(index: number, item: WasteMetricCs) {
+    trackMenuById(index: number, item: MenuCs) {
         return item.id;
     }
 }

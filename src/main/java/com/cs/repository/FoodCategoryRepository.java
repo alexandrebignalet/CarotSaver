@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Long> {
+public interface FoodCategoryRepository extends JpaRepository<FoodCategory, Long>, JpaSpecificationExecutor<FoodCategory> {
 
 }

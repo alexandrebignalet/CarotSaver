@@ -3,19 +3,17 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "menu",
-            "otherEntityName": "menu",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "meal"
-        },
-        {
-            "relationshipType": "one-to-one",
             "relationshipName": "wasteMetric",
             "otherEntityName": "wasteMetric",
             "otherEntityField": "id",
             "ownerSide": true,
             "otherEntityRelationshipName": "meal"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "menu",
+            "otherEntityName": "menu",
+            "otherEntityField": "id"
         }
     ],
     "fields": [

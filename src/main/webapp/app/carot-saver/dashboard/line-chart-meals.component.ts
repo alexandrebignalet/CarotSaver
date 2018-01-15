@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import {MealCs} from "../../entities/meal/meal-cs.model";
+import {MealCs} from "../../entities/meal";
 
 @Component({
     selector: 'jhi-line-chart-meals',
@@ -25,7 +25,6 @@ export class LineChartMealsComponent implements OnInit, OnChanges {
         ];
         this.lineChartLabels = [''];
 
-        console.log(this);
         if(!this.meals) {
             this.meals = [];
         }

@@ -1,9 +1,11 @@
 package com.cs.service;
 
 import com.cs.domain.Meal;
+import com.cs.service.dto.MealWasteMetricDTO;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +21,33 @@ public interface MealService {
      */
     Meal save(Meal meal);
 
+    /**
+     * Check if a Meal can be created
+     * Only one Meal can be persisted by day
+     *
+     * @return boolean
+     */
+    Boolean canBeCreated();
+
+    /**
+     * Get the top ten Meal which were the less waster
+     * @return meals
+     */
+    List<Meal> getTopWaster(int limit, Boolean more);
+
+    /**
+     * Give some metrics about meal wasting
+     * @return waste metrics
+     */
+    MealWasteMetricDTO getMealWasteMetric();
+
+    /**
+     * Get the Meal of a given day
+     *
+     * @param date of the day
+     * @return the persisted entity
+     */
+    Meal getMealOfTheDay(Date date);
     /**
      *  Get all the meals.
      *

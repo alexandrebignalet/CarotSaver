@@ -24,8 +24,7 @@ public class Meal extends AbstractAuditingEntity implements Serializable {
     @Column(name = "nb_present")
     private Integer nbPresent;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private Menu menu;
 
     @OneToOne
@@ -106,6 +105,7 @@ public class Meal extends AbstractAuditingEntity implements Serializable {
         return "Meal{" +
             "id=" + getId() +
             ", nbPresent='" + getNbPresent() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
             "}";
     }
 }

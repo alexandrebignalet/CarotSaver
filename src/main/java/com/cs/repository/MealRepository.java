@@ -18,4 +18,20 @@ import java.util.List;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findMealsByCreatedDateBetween(Instant startDate, Instant endDate);
+
+    @Query(value="SELECT meal.*, sum(waste.plastic+waste.green+waste.other)/count(meal.id) as sum_w "+
+        "from MEAL as meal " +
+        "left join MENU as menu on menu.id = meal.menu_id " +
+        "left join WASTE_METRIC as waste on waste.id = meal.waste_metric_id " +
+        "group by meal.id, menu.id " +
+        "order by sum_w ASC limit ?1 ", nativeQuery = true)
+    List<Meal> findTopLessWaster(int limit);
+
+    @Query(value="SELECT meal.*, sum(waste.plastic+waste.green+waste.other)/count(meal.id) as sum_w "+
+        "from MEAL as meal " +
+        "left join MENU as menu on menu.id = meal.menu_id " +
+        "left join WASTE_METRIC as waste on waste.id = meal.waste_metric_id " +
+        "group by meal.id, menu.id " +
+        "order by sum_w DESC limit ?1 ", nativeQuery = true)
+    List<Meal> findTopMoreWaster(int limit);
 }

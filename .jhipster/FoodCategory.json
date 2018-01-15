@@ -10,7 +10,7 @@
     "changelogDate": "20180108090451",
     "entityTableName": "food_category",
     "dto": "no",
-    "pagination": "no",
+    "jpaMetamodelFiltering": "true",
     "service": "serviceImpl",
     "angularJSSuffix": "cs"
 }

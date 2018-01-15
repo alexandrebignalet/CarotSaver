@@ -2,17 +2,20 @@ package com.cs.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.cs.domain.Menu;
+import com.cs.repository.projection.MenuCounterPerFoodCategory;
 import com.cs.service.MenuService;
 import com.cs.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,6 +102,23 @@ public class MenuResource {
         log.debug("REST request to get Menu : {}", id);
         Menu menu = menuService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(menu));
+    }
+
+    /**
+     * GET  /menus/counter-by-food-categories : get a List of MenuCounterByFoodCategory.
+     *
+     * @param startDate of the search
+     * @param endDate of the search
+     * @return the ResponseEntity with status 200 (OK) and with body the menu, or with status 404 (Not Found)
+     */
+    @GetMapping("/menus/counter-by-food-categories/{startDate}/{endDate}")
+    @Timed
+    public List<MenuCounterPerFoodCategory> getAllMenuCounterPerFoodCategory(
+        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+        @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+    ) {
+        log.debug("REST request to getAll MenuCounterByFoodCategory between " + startDate.toString() + " and "+endDate.toString());
+        return menuService.findMenuRepartitionByFoodCategory(startDate.toInstant(), endDate.toInstant());
     }
 
     /**

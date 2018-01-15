@@ -44,8 +44,11 @@ entity Meal {
 relationship OneToOne {
 	SatisfactionSurvey{qualityRate} to MealRate,
     SatisfactionSurvey{quantityRate} to MealRate,
-	Meal{menu} to Menu,
     Meal{wasteMetric} to WasteMetric
+}
+
+relationship ManyToOne {
+	Meal{menu} to Menu
 }
 
 

@@ -13,7 +13,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
     templateUrl: './meal-cs.component.html'
 })
 export class MealCsComponent implements OnInit, OnDestroy {
-    meals: MealCs[];
+meals: MealCs[];
     currentAccount: any;
     eventSubscriber: Subscription;
 

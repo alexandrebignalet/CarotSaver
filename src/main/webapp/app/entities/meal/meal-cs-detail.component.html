@@ -8,16 +8,16 @@
         <dd>
             <span>{{meal.nbPresent}}</span>
         </dd>
-        <dt><span>Menu</span></dt>
-        <dd>
-            <div *ngIf="meal.menu">
-                <a [routerLink]="['/menu-cs', meal.menu?.id]">{{meal.menu?.id}}</a>
-            </div>
-        </dd>
         <dt><span>Waste Metric</span></dt>
         <dd>
             <div *ngIf="meal.wasteMetric">
                 <a [routerLink]="['/waste-metric-cs', meal.wasteMetric?.id]">{{meal.wasteMetric?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Menu</span></dt>
+        <dd>
+            <div *ngIf="meal.menu">
+                <a [routerLink]="['/menu-cs', meal.menu?.id]">{{meal.menu?.id}}</a>
             </div>
         </dd>
     </dl>
