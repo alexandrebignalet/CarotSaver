@@ -19,6 +19,9 @@ import {MenuEditComponent} from "./menu-edit/menu-edit.component";
     ],
     entryComponents: [
     ],
+    exports: [
+      MenuEditComponent
+    ],
     providers: [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

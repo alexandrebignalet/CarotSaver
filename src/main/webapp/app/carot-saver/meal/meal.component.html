@@ -7,9 +7,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-8">
+    <div class="col-3">
         <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="onDateChange($event)"  ></ngb-datepicker>
 
     </div>
+    <div class="col">
+        <cs-menu-edit></cs-menu-edit>
+    </div>
+
 
 </div>

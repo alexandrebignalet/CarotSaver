@@ -6,17 +6,20 @@ import { CarotSaverSharedModule } from '../../shared';
 import {MEAL_ROUTE} from "./meal.route";
 import {MealComponent} from "./meal.component";
 import {MealEditComponent} from "./meal-edit/meal-edit.component";
+import {MenuModule} from "../menu/menu.module";
 
 
 @NgModule({
     imports: [
         CarotSaverSharedModule,
         AngularMultiSelectModule,
+        MenuModule,
         RouterModule.forRoot(MEAL_ROUTE , { useHash: true })
     ],
     declarations: [
         MealComponent,
-        MealEditComponent
+        MealEditComponent,
+
     ],
     entryComponents: [
     ],

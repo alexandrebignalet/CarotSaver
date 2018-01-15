@@ -6,9 +6,10 @@ import {MenuCs} from "../../entities/menu/menu-cs.model";
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper, Account, LoginModalService } from '../../shared';
 import {Router} from '@angular/router';
 import {MealCsService} from "../../entities/meal/meal-cs.service";
+import {MenuEditComponent} from "../menu/menu-edit/menu-edit.component";
 
 @Component({
-    selector: 'jhi-home',
+    selector: 'meal-component',
     templateUrl: './meal.component.html',
     styleUrls: [
         'meal.scss'
@@ -17,6 +18,7 @@ import {MealCsService} from "../../entities/meal/meal-cs.service";
 })
 export class MealComponent implements OnInit, OnDestroy {
     meals: any;
+    meal: any;
     currentAccount: any;
     model: any;
     eventSubscriber: Subscription;
