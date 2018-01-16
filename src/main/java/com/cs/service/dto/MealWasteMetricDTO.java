@@ -5,33 +5,40 @@ public class MealWasteMetricDTO {
     public static int ONE_MONTH_AGO = 1;
     public static int ONE_WEEK_AGO = 1;
 
-    private Long lastThreeMonths;
-    private Long lastMonth;
-    private Long lastWeek;
+    private double lastThreeMonths;
+    private double lastMonth;
+    private double lastWeek;
 
     public MealWasteMetricDTO(){}
 
-    public Long getLastThreeMonths() {
+    public MealWasteMetricDTO(double lastThreeMonths, double lastMonth, double lastWeek){
+        this.lastMonth = lastMonth;
+        this.lastThreeMonths = lastThreeMonths;
+        this.lastWeek = lastWeek;
+    }
+
+
+    public double getLastThreeMonths() {
         return lastThreeMonths;
     }
 
-    public void setLastThreeMonths(Long lastThreeMonths) {
+    public void setLastThreeMonths(double lastThreeMonths) {
         this.lastThreeMonths = lastThreeMonths;
     }
 
-    public Long getLastMonth() {
+    public double getLastMonth() {
         return lastMonth;
     }
 
-    public void setLastMonth(Long lastMonths) {
+    public void setLastMonth(double lastMonths) {
         this.lastMonth = lastMonths;
     }
 
-    public Long getLastWeek() {
+    public double getLastWeek() {
         return lastWeek;
     }
 
-    public void setLastWeek(Long lastWeek) {
+    public void setLastWeek(double lastWeek) {
         this.lastWeek = lastWeek;
     }
 }

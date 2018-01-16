@@ -21,6 +21,11 @@ export class MenuCsService {
         });
     }
 
+    getMenuCounterByFoodCategory(startDate, endDate) {
+        return this.http.get(`${this.resourceUrl}/counter-by-food-categories/${startDate}/${endDate}`)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
     update(menu: MenuCs): Observable<MenuCs> {
         const copy = this.convert(menu);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {

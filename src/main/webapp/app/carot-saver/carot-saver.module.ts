@@ -6,11 +6,13 @@ import { CarotSaverSharedModule } from '../shared';
 import { CAROT_SAVER_ROUTE, CarotSaverComponent } from './';
 import {MenuModule} from "./menu/menu.module";
 import {DashboardModule} from "./dashboard/dashboard.module";
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
     imports: [
         CarotSaverSharedModule,
         MenuModule,
+        ChartsModule,
         DashboardModule,
         RouterModule.forRoot([ CAROT_SAVER_ROUTE ], { useHash: true })
     ],

@@ -1,5 +1,5 @@
 import './vendor.ts';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
@@ -49,7 +49,8 @@ import {CarotSaverMainModule} from "./carot-saver/carot-saver.module";
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        {provide: LOCALE_ID, useValue: "fr-FR"}
     ],
     bootstrap: [ JhiMainComponent ]
 })

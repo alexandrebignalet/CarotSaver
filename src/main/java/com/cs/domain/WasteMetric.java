@@ -75,7 +75,7 @@ public class WasteMetric implements Serializable {
     }
 
     public Long getTotal() {
-        return plastic + green + other;
+        return green + other;
     }
 
     public void setOther(Long other) {
