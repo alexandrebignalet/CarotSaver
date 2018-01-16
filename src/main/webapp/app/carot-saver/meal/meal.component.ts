@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
 import {MenuCs} from "../../entities/menu/menu-cs.model";
@@ -9,6 +9,8 @@ import {MealCsService} from "../../entities/meal/meal-cs.service";
 import {MenuEditComponent} from "../menu/menu-edit/menu-edit.component";
 import {MenuCsService} from "../../entities/menu/menu-cs.service";
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {WasteMetricCs} from "../../entities/waste-metric/waste-metric-cs.model";
+import {WasteMetricCsService} from "../../entities/waste-metric/waste-metric-cs.service";
 
 @Component({
     selector: 'meal-component',
@@ -19,6 +21,7 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 })
 export class MealComponent implements OnInit, OnDestroy {
+
     meals: any;
     meal: any;
     currentAccount: any;
@@ -31,22 +34,45 @@ export class MealComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private router: Router
+        private router: Router,
+        private wasteMetricService: WasteMetricCsService
     ) {
     }
 
-    loadAll() {
-        this.mealService.query().subscribe(
-            (res: ResponseWrapper) => {
-
-                this.parseData(res.json);
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
-        );
-    }
 
     ngOnInit() {
         this.initSelectedDate();
+        this.initMeal();
+
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+        });
+    }
+
+    onDateChange($event) {
+        let date = this.getFormattedDate();
+
+        this.mealService.findByCreatedDate(date)
+
+            .mergeMap(meal => {
+                this.meal = meal;
+                return this.menuService.find(meal.menu.id)
+            })
+            .subscribe(
+                (menu) => {
+                    this.meal.menu = menu;
+                    console.log(this.meal);
+                },
+                (res: ResponseWrapper) => {
+                    this.initMeal();
+                    this.onError(res.json)
+                }
+            );
+
+    }
+
+
+    private initMeal() {
         this.meal = {
             menu: {},
             nbPresent: 0,
@@ -56,14 +82,6 @@ export class MealComponent implements OnInit, OnDestroy {
                 other: 0
             }
         };
-        this.loadAll();
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInMenus();
-
-
-
     }
 
     private initSelectedDate() {
@@ -86,9 +104,7 @@ export class MealComponent implements OnInit, OnDestroy {
     trackId(index: number, item: MenuCs) {
         return item.id;
     }
-    registerChangeInMenus() {
-        this.eventSubscriber = this.eventManager.subscribe('menuListModification', (response) => this.loadAll());
-    }
+
 
     goToEdit() {
         this.router.navigate(['/carot-saver-meal-edit'])
@@ -98,26 +114,63 @@ export class MealComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    onDateChange($event) {
-        let date = this.getFormattedDate();
-
-        this.mealService.findByCreatedDate(date)
-
-            .mergeMap( meal => {
-                this.meal = meal;
-                return this.menuService.find(meal.menu.id)
-            })
-            .subscribe(
-                (menu) => {
-                    this.meal.menu = menu;
-                    console.log(this.meal);
-                },
-                (res: ResponseWrapper) => this.onError(res.json)
-            )
-
+    onSaveMenu($event) {
+        this.meal.menu = $event;
+        console.log($event);
     }
 
 
+    saveMeal() {
+        if (this.meal.wasteMetric.id !== undefined) {
+            console.log('pd');
+            this.wasteMetricService.update(this.meal.wasteMetric)
+                .mergeMap( wm => {
+                    this.meal.wasteMetric = wm;
+                    if(this.meal.menu.id !== undefined) return this.menuService.create(this.meal.menu);
+                    if(!this.meal.menu.id) return this.menuService.update(this.meal.menu);
+                })
+                .mergeMap( menu => {
+                    this.meal.menu = menu;
+                    if(this.meal.id !== undefined) return this.mealService.create(this.meal);
+                    if(!this.meal.id) return this.mealService.update(this.meal);
+                })
+                .subscribe(
+                    meal => console.log(meal),
+                    err => console.log(err)
+                )
+        } else {
+            console.log('pd2');
+            this.wasteMetricService.create(this.meal.wasteMetric)
+                .mergeMap( wm => {
+                    this.meal.wasteMetric = wm;
+                    if(this.meal.menu.id !== undefined) return this.menuService.create(this.meal.menu);
+                    if(!this.meal.menu.id) return this.menuService.update(this.meal.menu);
+                })
+                .mergeMap( menu => {
+                    this.meal.menu = menu;
+                    if(this.meal.id !== undefined) return this.mealService.create(this.meal);
+                    if(!this.meal.id) return this.mealService.update(this.meal);
+                })
+                .subscribe(
+                    meal => console.log(meal),
+                    err => console.log(err)
+                )
+        }
+    }
+
+    private subscribeToSaveWMResponse(result: Observable<WasteMetricCs>) {
+        result.subscribe((res: WasteMetricCs) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    }
+
+    private onSaveSuccess(result: WasteMetricCs) {
+        this.eventManager.broadcast({ name: 'wasteMetricListModification', content: 'OK'});
+
+    }
+
+    private onSaveError() {
+
+    }
 
     getFormattedDate() {
 
