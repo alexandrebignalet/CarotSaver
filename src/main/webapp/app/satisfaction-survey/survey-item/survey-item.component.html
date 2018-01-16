@@ -1,12 +1,13 @@
 <h4>{{surveyItem.name}}</h4>
 <div class="row">
-    <div class="col-1">
-        <i class="fa fa-cutlery fa-4x"></i>
-    </div>
+    <div class="col-1"></div>
     <div class="col-1">
         <img id="{{surveyItem.name}}">
     </div>
     <div class="col-8">
+        <div class="row">
+            <p>Qu'avez-vous mangé?</p>
+        </div>
         <label>
             <input name="{{surveyItem.name + 'Group'}}" type="radio" 
             (change)="onSelectionChange(1)"> Rien du tout
@@ -32,17 +33,24 @@
             <div class="col-12 btn-group" role="group">
                 <button type="button" class="btn" 
                 style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
-                (click)="setFeedback('up')">
+                (click)="setFeedback(1)">
                     <img class="img-fluid" 
                     style="max-width:100%; height:auto;" 
-                    src="../../../content/images/carotsaver-up.jpg">
+                    src="../../../content/images/carotsaver-sad.jpg">
                 </button>
                 <button type="button" class="btn" 
                 style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
-                (click)="setFeedback('down')">
+                (click)="setFeedback(2)">
                     <img class="img-fluid" 
                     style="max-width:100%; height:auto;" 
-                    src="../../../content/images/carotsaver-down.jpg">
+                    src="../../../content/images/carotsaver-indifferent.jpg">
+                </button>
+                <button type="button" class="btn" 
+                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
+                (click)="setFeedback(3)">
+                    <img class="img-fluid" 
+                    style="max-width:100%; height:auto;" 
+                    src="../../../content/images/carotsaver-fine.jpg">
                 </button>
             </div>
         </div>

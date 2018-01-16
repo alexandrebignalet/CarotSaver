@@ -1,10 +1,11 @@
 export class SurveyItem{
     name: string;
-    rate: Number;
-    liked: boolean = false;
+    quantityRate: number;
+    qualityRate: number;
 
-    constructor(_name: string, _rate: Number){
+    constructor(_name: string, _qualityRate: number, _quantityRate: number){
         this.name = _name;
-        this.rate = _rate;
+        this.qualityRate = _qualityRate;
+        this.quantityRate = _quantityRate;
     }
 }

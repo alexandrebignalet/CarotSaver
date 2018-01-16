@@ -24,16 +24,30 @@ export class SurveyItemComponent implements OnInit{
     } 
 
     onSelectionChange(item): void {
-        this.surveyItem.rate = item;
+        this.surveyItem.quantityRate = item;
     }
 
-    setFeedback(str): void {
-        let img = str === 'up' ? "b20727af92cb5ce57b6d75978779f3c3" : "5fe6ce54cb08deee03cdf9aae815b166";
+    setFeedback(item): void {
+        let img = this.getImage(item);
         let icon = document.getElementById(this.surveyItem.name);
         icon.setAttribute("style", "max-width:100%; height:auto;");
         icon.setAttribute("class", "img-thumbnail");
         icon.setAttribute("src", "content/" + img + ".jpg");
-        this.surveyItem.liked =
-            str === 'up' ? true : false;
+        this.surveyItem.qualityRate = item;
+    }
+
+    private getImage(nb: number): string{
+        if (nb === 0){
+            return null;
+        }
+        else if (nb === 1){
+            return '994a7128c3d898cd4d16098f55e79cf2';
+        }
+        else if (nb ===2){
+            return '8b032682ff95077c905919d9548c6e11';
+        }
+        else{
+            return 'b20727af92cb5ce57b6d75978779f3c3';
+        }
     }
 }
