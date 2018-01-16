@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-3">
-        <ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="onDateChange($event)"  ></ngb-datepicker>
+        <ngb-datepicker #dp [(ngModel)]="selectedDate" (ngModelChange)="onDateChange($event)"  ></ngb-datepicker>
 
     </div>
     <div class="col-6">
@@ -12,9 +12,10 @@
             <div class="form-group row">
                 <label for="input-nb-personnes" class="col-8 col-form-label">Nombre personnes</label>
                 <div class="col-4">
-                    <input class="form-control" name="b" type="text" [(ngModel)]="meal.nbParticipant" id="input-nb-personnes">
+                    <input class="form-control" name="b" type="text" [(ngModel)]="meal.nbPresent" id="input-nb-personnes">
                 </div>
             </div>
+            <hr>
             <div class="form-group row">
                 <label for="input-waste-entree" class="col-8 col-form-label">Plastique</label>
                 <div class="col-4">
@@ -35,6 +36,4 @@
             </div>
         </form>
     </div>
-
-
 </div>

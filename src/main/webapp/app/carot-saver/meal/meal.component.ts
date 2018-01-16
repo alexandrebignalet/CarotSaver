@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {MealCsService} from "../../entities/meal/meal-cs.service";
 import {MenuEditComponent} from "../menu/menu-edit/menu-edit.component";
 import {MenuCsService} from "../../entities/menu/menu-cs.service";
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'meal-component',
@@ -21,7 +22,7 @@ export class MealComponent implements OnInit, OnDestroy {
     meals: any;
     meal: any;
     currentAccount: any;
-    model: any;
+    selectedDate: any;
     eventSubscriber: Subscription;
 
     constructor(
@@ -45,10 +46,15 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.model = {};
+        this.initSelectedDate();
         this.meal = {
             menu: {},
-            wasteMetric: {}
+            nbPresent: 0,
+            wasteMetric: {
+                plastic: 0,
+                green: 0,
+                other: 0
+            }
         };
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -58,6 +64,17 @@ export class MealComponent implements OnInit, OnDestroy {
 
 
 
+    }
+
+    private initSelectedDate() {
+        const date = new Date();
+        this.selectedDate = {
+            day: date.getUTCDate(),
+            month: date.getUTCMonth() + 1,
+            year: date.getUTCFullYear(),
+        }
+
+        console.log(this.selectedDate);
     }
 
 
@@ -87,11 +104,13 @@ export class MealComponent implements OnInit, OnDestroy {
         this.mealService.findByCreatedDate(date)
 
             .mergeMap( meal => {
+                this.meal = meal;
                 return this.menuService.find(meal.menu.id)
             })
             .subscribe(
-                (res) => {
-                    console.log(res);
+                (menu) => {
+                    this.meal.menu = menu;
+                    console.log(this.meal);
                 },
                 (res: ResponseWrapper) => this.onError(res.json)
             )
@@ -102,10 +121,10 @@ export class MealComponent implements OnInit, OnDestroy {
 
     getFormattedDate() {
 
-        if(this.model.day) {
-            let formattedDay = this.model.day.toString().length == 1 ? '0' + this.model.day : this.model.day;
-            let formattedMonth = this.model.month.toString().length == 1 ? '0' + this.model.month : this.model.month;
-            let date = `${this.model.year}-${formattedMonth}-${formattedDay}`;
+        if(this.selectedDate.day) {
+            let formattedDay = this.selectedDate.day.toString().length == 1 ? '0' + this.selectedDate.day : this.selectedDate.day;
+            let formattedMonth = this.selectedDate.month.toString().length == 1 ? '0' + this.selectedDate.month : this.selectedDate.month;
+            let date = `${this.selectedDate.year}-${formattedMonth}-${formattedDay}`;
 
             return date;
         }
