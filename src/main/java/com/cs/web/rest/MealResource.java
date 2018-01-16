@@ -163,9 +163,9 @@ public class MealResource {
 
     @GetMapping("/meals/top-ten-waster")
     @Timed
-    public List<Meal> getTopTenWaster(@RequestParam Boolean more) {
+    public List<Meal> getTopTenWaster(@RequestParam Boolean more, @RequestParam int limit) {
         log.debug("REST request to get top ten " + (more ? "more" : "less") +" waster meals");
-        return this.mealService.getTopWaster(10, more);
+        return this.mealService.getTopWaster(limit, more);
     }
 
 

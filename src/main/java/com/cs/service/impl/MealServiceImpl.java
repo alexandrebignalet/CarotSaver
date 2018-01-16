@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.*;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Service Implementation for managing Meal.
@@ -58,38 +56,22 @@ public class MealServiceImpl implements MealService {
     public MealWasteMetricDTO getMealWasteMetric() {
         MealWasteMetricDTO mealWasteMetricDTO = new MealWasteMetricDTO();
         Instant threeMonthsAgo = LocalDate.now().minusMonths(MealWasteMetricDTO.THREE_MONTHS_AGO).atStartOfDay().toInstant(ZoneOffset.UTC);
-
-        List<Meal> meals = this.mealRepository.findMealsByCreatedDateBetween(threeMonthsAgo, Instant.now());
-
         Instant oneMonthAgo = LocalDate.now().minusMonths(MealWasteMetricDTO.ONE_MONTH_AGO).atStartOfDay().toInstant(ZoneOffset.UTC);
         Instant oneWeekAgo= LocalDate.now().minusWeeks(MealWasteMetricDTO.ONE_WEEK_AGO).atStartOfDay().toInstant(ZoneOffset.UTC);
 
-        Long sumThreeMonths = 0L, sumLastMonth = 0L, sumLastWeek = 0L;
-        int index = 0, indexWeek = 0, indexMonth = 0;
+        List<Meal> mealsSinceThreeMonths = this.mealRepository.findMealsByCreatedDateBetween(threeMonthsAgo, Instant.now());
+        List<Meal> mealsSinceOneMonth = this.mealRepository.findMealsByCreatedDateBetween(oneMonthAgo, Instant.now());
+        List<Meal> mealsFromLastWeek = this.mealRepository.findMealsByCreatedDateBetween(oneWeekAgo, Instant.now());
 
-        for (Meal meal: meals) {
-            sumThreeMonths += meal.getWasteMetric().getTotal();
-
-            if( meal.getCreatedDate().isAfter(oneWeekAgo) ) {
-                indexWeek = meals.size() - index;
-                sumLastWeek += meal.getWasteMetric().getTotal();
-            }
-
-            if( meal.getCreatedDate().isAfter(oneMonthAgo)) {
-                indexMonth = meals.size() - index;
-                sumLastMonth += meal.getWasteMetric().getTotal();
-            }
-
-            index++;
-        }
-System.out.println(index);
-System.out.println(indexWeek);
-System.out.println(indexMonth);
-        mealWasteMetricDTO.setLastThreeMonths(index == 0 ? 0 : (sumThreeMonths/index));
-        mealWasteMetricDTO.setLastMonth(indexWeek == 0 ? 0 : (sumLastMonth/indexWeek));
-        mealWasteMetricDTO.setLastWeek(indexMonth == 0 ? 0 : (sumLastWeek/indexMonth));
+        this.getAverageWaste(mealsSinceThreeMonths).ifPresent(mealWasteMetricDTO::setLastThreeMonths);
+        this.getAverageWaste(mealsSinceOneMonth).ifPresent(mealWasteMetricDTO::setLastMonth);
+        this.getAverageWaste(mealsFromLastWeek).ifPresent(mealWasteMetricDTO::setLastWeek);
 
         return mealWasteMetricDTO;
+    }
+
+    public OptionalDouble getAverageWaste(List<Meal> meals) {
+        return meals.stream().mapToLong((Meal meal) -> meal.getWasteMetric().getTotal()).average();
     }
 
     public Meal getMealOfTheDay(Date date) {

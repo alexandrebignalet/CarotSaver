@@ -36,6 +36,17 @@ export class MealCsService {
         });
     }
 
+    fetchMetrics(): Observable<any> {
+        return this.http.get(`${this.resourceUrl}/waste-metrics`).map((res: Response) => {
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
+        });
+    }
+
+    fetchTopWaster(type: boolean, limit: number) : Observable<ResponseWrapper> {
+        return this.http.get(`${this.resourceUrl}/top-ten-waster?more=${type? 'true' : 'false'}&limit=${limit}`).map((res: Response) => this.convertResponse(res));
+    }
+
     /**
      *
      * @param startDate yyyy-MM-dd

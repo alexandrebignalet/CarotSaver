@@ -1,20 +1,95 @@
-<div class="row">
-    <h2>Carot Saver</h2>
+<div class="row text-center">
+    <h2>Statistiques</h2>
 </div>
-<ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
-</ngb-datepicker>
+<div class="row text-center">
+    <div class="col-md-6">
+        <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+        </ngb-datepicker>
 
-<ng-template #t let-date="date" let-focused="focused">
-  <span class="custom-day"
-        [class.focused]="focused"
-        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-        [class.faded]="isHovered(date) || isInside(date)"
-        (mouseenter)="hoveredDate = date"
-        (mouseleave)="hoveredDate = null">
-    {{ date.day }}
-  </span>
-</ng-template>
+        <ng-template #t let-date="date" let-focused="focused">
+          <span class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+          </span>
+        </ng-template>
+    </div>
+    <div class="col-md-6">
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <h4>3 derniers mois</h4>
+                <h1><span class="indicator badge badge-danger">{{wasteMetrics?.lastThreeMonths | number: '1.0-0' }}g</span></h1>
+            </div>
+            <div class="col-lg-4">
+                <h4>Dernier mois</h4>
+                <h1><span class="indicator badge" style="color:white!important;"
+                          [ngClass]="{'badge-success': wasteMetrics?.lastMonth < wasteMetrics?.lastThreeMonths,
+                       'badge-warning': wasteMetrics?.lastMonth < wasteMetrics?.lastThreeMonths}">
+            {{wasteMetrics?.lastMonth | number: '1.0-0' }}g</span></h1>
+            </div>
+            <div class="col-lg-4">
+                <h4>Semaine dernière</h4>
+                <h1>
+            <span class="indicator badge"
+                  [ngClass]="{'badge-success': wasteMetrics?.lastWeek < wasteMetrics?.lastMonth && wasteMetrics?.lastMonth < wasteMetrics?.lastThreeMonths,
+                       'badge-warning': wasteMetrics?.lastWeek < wasteMetrics?.lastMonth && wasteMetrics?.lastMonth > wasteMetrics?.lastThreeMonths,
+                       'badge-warning': wasteMetrics?.lastWeek > wasteMetrics?.lastMonth && wasteMetrics?.lastMonth < wasteMetrics?.lastThreeMonths,
+                       'badge-danger': wasteMetrics?.lastWeek > wasteMetrics?.lastMonth && wasteMetrics?.lastMonth > wasteMetrics?.lastThreeMonths}">
+            {{wasteMetrics?.lastWeek | number: '1.0-0' }}g
+            </span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <jhi-line-chart-meals [from]="fromDate" [to]="toDate" [meals]="meals" [options]="wasteEvolutionChartOpts"></jhi-line-chart-meals>
     <jhi-line-chart-meals [from]="fromDate" [to]="toDate" [meals]="meals" [options]="studentEvolutionChartOpts"></jhi-line-chart-meals>
+</div>
+<div class="row" >
+    <div class="col-md-6">
+        <h2>Menu count: {{totalMenus}}</h2>
+        <canvas baseChart *ngIf="menuCounters.length > 0"
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"></canvas>
+    </div>
+    <div class="col-md-6" *ngIf="topWaster.length > 0">
+        <h2>Top des menus les moins gaspilleurs</h2>
+
+        <div class="input-group">
+            <input type="number" class="form-control" [(ngModel)]="limit"/>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary fa fa-arrow-up" style="height:38px;" *ngIf="topType" (click)="topType = !topType"></button>
+                <button type="button" class="btn btn-outline-secondary fa fa-arrow-down" style="height:38px;" *ngIf="!topType" (click)="topType = !topType"></button>
+            </div>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-primary" (click)="loadTopWaster()">Load</button>
+            </div>
+        </div>
+
+        <table class="table table-responsive">
+            <thead>
+                <th></th>
+                <th>Repas ID</th>
+                <th>Date</th>
+                <th>Nombre de mangeurs</th>
+                <th>Menu ID</th>
+                <th>Gaspillage</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let meal of topWaster; let i = index" [attr.data-index]="i">
+                    <td>{{i}}</td>
+                    <td><a href [routerLink]="['../meal-cs', meal.id ]">{{ meal.id }}</a></td>
+                    <td>{{ meal.createdDate | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ meal.nbPresent }}</td>
+                    <td><a href [routerLink]="['../menu-cs', meal.menu?.id ]">{{ meal.menu.id }}</a></td>
+                    <td>{{ meal.wasteMetric.total }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
