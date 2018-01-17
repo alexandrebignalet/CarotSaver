@@ -121,18 +121,19 @@ export class MealComponent implements OnInit, OnDestroy {
 
 
     saveMeal() {
+        console.log(this.meal);
         if (this.meal.wasteMetric.id !== undefined) {
             console.log('pd');
             this.wasteMetricService.update(this.meal.wasteMetric)
                 .mergeMap( wm => {
                     this.meal.wasteMetric = wm;
-                    if(this.meal.menu.id !== undefined) return this.menuService.create(this.meal.menu);
-                    if(!this.meal.menu.id) return this.menuService.update(this.meal.menu);
+                    if(this.meal.menu.id !== undefined) return this.menuService.update(this.meal.menu);
+                    if(!this.meal.menu.id) return this.menuService.create(this.meal.menu);
                 })
                 .mergeMap( menu => {
                     this.meal.menu = menu;
-                    if(this.meal.id !== undefined) return this.mealService.create(this.meal);
-                    if(!this.meal.id) return this.mealService.update(this.meal);
+                    if(this.meal.id !== undefined) return this.mealService.update(this.meal);
+                    if(!this.meal.id) return this.mealService.create(this.meal);
                 })
                 .subscribe(
                     meal => console.log(meal),
@@ -143,13 +144,13 @@ export class MealComponent implements OnInit, OnDestroy {
             this.wasteMetricService.create(this.meal.wasteMetric)
                 .mergeMap( wm => {
                     this.meal.wasteMetric = wm;
-                    if(this.meal.menu.id !== undefined) return this.menuService.create(this.meal.menu);
-                    if(!this.meal.menu.id) return this.menuService.update(this.meal.menu);
+                    if(this.meal.menu.id !== undefined) return this.menuService.update(this.meal.menu);
+                    if(!this.meal.menu.id) return this.menuService.create(this.meal.menu);
                 })
                 .mergeMap( menu => {
                     this.meal.menu = menu;
-                    if(this.meal.id !== undefined) return this.mealService.create(this.meal);
-                    if(!this.meal.id) return this.mealService.update(this.meal);
+                    if(this.meal.id !== undefined) return this.mealService.update(this.meal);
+                    if(!this.meal.id) return this.mealService.create(this.meal);
                 })
                 .subscribe(
                     meal => console.log(meal),
