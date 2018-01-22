@@ -2,15 +2,30 @@
     <div class="col border border-left-0 border-right-0 border-top-0">
         <h2>
             Gestion des repas
+
         </h2>
     </div>
 </div>
 <br>
 <div class="row p-xl">
-    <div class="col-3 align-middle">
-        <ngb-datepicker #dp [(ngModel)]="selectedDate" (ngModelChange)="onDateChange($event)"  ></ngb-datepicker>
+    <div class="col-2">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col">
+                <ngb-datepicker style="width: 100%" [(ngModel)]="selectedDate" (ngModelChange)="onDateChange($event)"  #d="ngbDatepicker"></ngb-datepicker>
+            </div>
+        </div>
+
+        <hr>
+        <div class="row">
+
+            <div class="col">
+                <button (click)="saveMeal()" type="button" class="btn btn-block btn-outline-success">Valider</button>
+            </div>
+        </div>
 
     </div>
+
 
     <div class="col-3 border border-bottom-0 border-right-0 border-top-0">
         <form action="">
@@ -44,9 +59,5 @@
     <div class="col-6 border border-bottom-0 border-right-0 border-top-0">
         <cs-menu-edit (onSaveMenu)="onSaveMenu($event)" [menuInput]="meal.menu"></cs-menu-edit>
     </div>
-    <div class="row">
-        <div class="col">
-            <button (click)="saveMeal()" type="button" class="btn btn-block btn-outline">OUI PD</button>
-        </div>
-    </div>
+
 </div>
