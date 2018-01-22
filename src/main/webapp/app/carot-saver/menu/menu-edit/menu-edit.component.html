@@ -7,7 +7,8 @@
                 <div class="input-group">
                     <select class="form-control" name="entreeSelect"
                             id="entree"
-                            [(ngModel)]="selectedEntree">
+                            [(ngModel)]="selectedEntree"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let entree of entrees;" [value]="entree.id">{{entree.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -23,7 +24,8 @@
                 <div class="input-group">
                     <select class="form-control" name="principalSelect"
                             id="principal"
-                            [(ngModel)]="selectedPrincipal">
+                            [(ngModel)]="selectedPrincipal"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let principal of principals" [value]="principal.id">{{principal.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -39,7 +41,8 @@
                 <div class="input-group">
                     <select class="form-control" name="dessertSelect"
                             id="dessert"
-                            [(ngModel)]="selectedDessert">
+                            [(ngModel)]="selectedDessert"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let dessert of desserts" [value]="dessert.id">{{dessert.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -55,7 +58,8 @@
                 <div class="input-group">
                     <select class="form-control" name="dessertOther"
                             id="others"
-                            [(ngModel)]="selectedOther">
+                            [(ngModel)]="selectedOther"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let other of others" [value]="other.id">{{other.name}}</option>
                     </select>
                     <div class="input-group-append">

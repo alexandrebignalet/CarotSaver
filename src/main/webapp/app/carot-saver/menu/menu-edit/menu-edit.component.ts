@@ -107,6 +107,16 @@ export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
+    test() {
+        this.menu.dishes = [
+            this.dishes.filter( item => item.id == this.selectedEntree)[0],
+            this.dishes.filter( item => item.id == this.selectedPrincipal)[0],
+            this.dishes.filter( item => item.id == this.selectedDessert)[0],
+            this.dishes.filter( item => item.id == this.selectedOther)[0],
+        ];
+        this.onSaveMenu.emit(this.menu);
+    }
+
     ngOnDestroy() {
         //this.eventManager.destroy(this.eventSubscriber);
     }
@@ -218,6 +228,7 @@ export class MenuEditComponent implements OnInit, OnDestroy, OnChanges {
         }
         this.dish = {};
         this.showDishForm = false;
+        this.test();
     }
 
 
