@@ -29,8 +29,7 @@ export class SatisfactionSurveyComponent implements OnInit{
     }
 
     submit(){
-        console.log(this.survey);
-        console.log(this.satisfactionSurvey);
+
         this.createSurvey();
     }
 
@@ -47,7 +46,8 @@ export class SatisfactionSurveyComponent implements OnInit{
                 satisfactionSurvey = this.getSatisfactionSurvey(this.survey.studentName, res[0].id, res[1].id);
                 this.surveyService.create(satisfactionSurvey).subscribe(
                     (res) => {
-                        console.log(res)
+                        console.log(res);
+                        this.survey = new Survey();
                     },
                     (res: ResponseWrapper) => console.log(res.json)
                 );
