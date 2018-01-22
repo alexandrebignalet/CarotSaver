@@ -24,6 +24,7 @@ import {
     ErrorComponent
 } from './layouts';
 import {CarotSaverMainModule} from "./carot-saver/carot-saver.module";
+import { SatisfactionSurveyModule } from './satisfaction-survey/satisfaction-survey.module';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import {CarotSaverMainModule} from "./carot-saver/carot-saver.module";
         CarotSaverAdminModule,
         CarotSaverAccountModule,
         CarotSaverEntityModule,
-        CarotSaverMainModule
+        CarotSaverMainModule,
+        SatisfactionSurveyModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
