@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CarotSaverSharedModule } from '../shared';
-import { ChartsModule } from 'ng2-charts';
 
 import { CAROT_SAVER_ROUTE, CarotSaverComponent } from './';
 import {MenuModule} from "./menu/menu.module";
