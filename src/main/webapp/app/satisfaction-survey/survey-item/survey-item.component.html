@@ -1,58 +1,75 @@
-<h4>{{surveyItem.name}}</h4>
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-1">
-        <img id="{{surveyItem.name}}">
+<div class="card">
+    <div class="card-header">
+        <h4>{{surveyItem.name}}</h4>
     </div>
-    <div class="col-8">
+    <div class="card-body">
+        <h5 class="card-title">
+            Qu'avez-vous mangé?
+        </h5>
         <div class="row">
-            <p>Qu'avez-vous mangé?</p>
+            <div class="col">
+                <div class="form-check">
+                    <label>
+                        <input name="{{surveyItem.name + 'Group'}}" type="radio"
+                               (change)="onSelectionChange(1)"> Rien du tout
+                    </label>
+                    <br>
+                    <label>
+                        <input name="{{surveyItem.name + 'Group'}}" type="radio"
+                               (change)="onSelectionChange(2)"> Pas trop
+                    </label>
+                    <br>
+                    <label>
+                        <input name="{{surveyItem.name + 'Group'}}" type="radio"
+                               (change)="onSelectionChange(3)"> La moitié
+                    </label>
+                    <br>
+                    <label>
+                        <input name="{{surveyItem.name + 'Group'}}" type="radio"
+                               (change)="onSelectionChange(4)"> Presque tout
+                    </label>
+                    <br>
+                    <label>
+                        <input name="{{surveyItem.name + 'Group'}}" type="radio"
+                               (change)="onSelectionChange(5)"> Tout
+                    </label>
+                </div>
+
+            </div>
+
         </div>
-        <label>
-            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-            (change)="onSelectionChange(1)"> Rien du tout
-        </label>
-        <label>
-            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-            (change)="onSelectionChange(2)"> Pas trop
-        </label>
-        <label>
-            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-            (change)="onSelectionChange(3)"> La moitié
-        </label>
-        <label>
-            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-            (change)="onSelectionChange(4)"> Presque tout
-        </label>
-        <label>
-            <input name="{{surveyItem.name + 'Group'}}" type="radio" 
-            (change)="onSelectionChange(5)"> Tout
-        </label>
+        <hr>
         <div class="row">
-            <p>Avez-vous apprécié ce plat?</p>
-            <div class="col-12 btn-group" role="group">
-                <button type="button" class="btn" 
-                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
-                (click)="setFeedback(1)">
-                    <img class="img-fluid" 
-                    style="max-width:100%; height:auto;" 
-                    src="../../../content/images/carotsaver-sad.jpg">
+            <div class="col-12">
+                <h5 class="card-title   ">Avez-vous apprécié ce plat?</h5>
+            </div>
+
+            <div class="col btn-group" role="group">
+                <button type="button" class="btn border  mr-4"
+                        style="min-width:50px; max-width:5%; height:auto; padding:0px;"
+                        (click)="setFeedback(1)">
+                    <img class="img-fluid"
+                         style="max-width:100%; height:auto;"
+                         src="../../../content/images/carotsaver-sad.jpg">
                 </button>
-                <button type="button" class="btn" 
-                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
-                (click)="setFeedback(2)">
-                    <img class="img-fluid" 
-                    style="max-width:100%; height:auto;" 
-                    src="../../../content/images/carotsaver-indifferent.jpg">
+                <button type="button" class="btn border   mr-4"
+                        style="min-width:50px; max-width:5%; height:auto; padding:0px;"
+                        (click)="setFeedback(2)">
+                    <img class="img-fluid"
+                         style="max-width:100%; height:auto;"
+                         src="../../../content/images/carotsaver-indifferent.jpg">
                 </button>
-                <button type="button" class="btn" 
-                style="min-width:50px; max-width:5%; height:auto; padding:0px;" 
-                (click)="setFeedback(3)">
-                    <img class="img-fluid" 
-                    style="max-width:100%; height:auto;" 
-                    src="../../../content/images/carotsaver-fine.jpg">
+                <button type="button" class="btn border mr-xl"
+                        style="min-width:50px; max-width:5%; height:auto; padding:0px;"
+                        (click)="setFeedback(3)">
+                    <img class="img-fluid"
+                         style="max-width:100%; height:auto;"
+                         src="../../../content/images/carotsaver-fine.jpg">
                 </button>
             </div>
         </div>
+
     </div>
 </div>
+
+
