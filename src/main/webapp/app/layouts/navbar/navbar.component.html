@@ -14,7 +14,7 @@
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>Home</span>
+                        <span>Accueil</span>
                     </span>
                 </a>
             </li>
@@ -22,18 +22,18 @@
                 <a class="nav-link" routerLink="carot-saver-main" (click)="collapseNavbar()">
                     <span>
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>Main page</span>
+                        <span>Page de reporting</span>
                     </span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+           <!-- <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="carot-saver-menu" (click)="collapseNavbar()">
                     <span>
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Menu page</span>
                     </span>
                 </a>
-            </li>
+            </li>-->
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="survey" (click)="collapseNavbar()">
                     <span>
@@ -46,12 +46,12 @@
                 <a class="nav-link" routerLink="carot-saver-meal" (click)="collapseNavbar()">
                     <span>
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        <span>Meal page</span>
+                        <span>Pages des repas</span>
                     </span>
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <!--<li *ngSwitchCase="false" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <i class="fa fa-th-list" aria-hidden="true"></i>
@@ -103,9 +103,9 @@
                             <span>Satisfaction Survey Cs</span>
                         </a>
                     </li>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                    &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;
                 </ul>
-            </li>
+            </li>-->
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>

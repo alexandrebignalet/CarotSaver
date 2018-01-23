@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group">
-                <label for="field_foodCategories">Food Categories</label>
+                <label for="field_foodCategories">Catégorie du plat</label>
                 <angular2-multiselect name="foodCategory" id="field_foodCategories" [data]="foodcategories" [(ngModel)]="dish.foodCategories" [settings]="dropdownSettings" >
                     <c-item>
                         <ng-template let-item="item">
@@ -89,7 +89,7 @@
                     </c-item>
                 </angular2-multiselect>
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Ajouter</button>
         </form>
     </div>
 </div>

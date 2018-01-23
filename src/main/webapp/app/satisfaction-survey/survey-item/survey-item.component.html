@@ -45,24 +45,24 @@
             </div>
 
             <div class="col btn-group" role="group">
-                <button type="button" class="btn border  mr-4"
+                <button [ngClass]="class1" id="img1"   type="button" class="btn border  mr-4"
                         style="min-width:50px; max-width:5%; height:auto; padding:0px;"
                         (click)="setFeedback(1)">
-                    <img class="img-fluid"
+                    <img  class="img-fluid"
                          style="max-width:100%; height:auto;"
                          src="../../../content/images/carotsaver-sad.jpg">
                 </button>
-                <button type="button" class="btn border   mr-4"
+                <button [ngClass]="class2" id="img2" type="button" class="btn border   mr-4"
                         style="min-width:50px; max-width:5%; height:auto; padding:0px;"
                         (click)="setFeedback(2)">
-                    <img class="img-fluid"
+                    <img  class="img-fluid"
                          style="max-width:100%; height:auto;"
                          src="../../../content/images/carotsaver-indifferent.jpg">
                 </button>
-                <button type="button" class="btn border mr-xl"
+                <button [ngClass]="class3" id="img3"  type="button" class="btn border mr-xl"
                         style="min-width:50px; max-width:5%; height:auto; padding:0px;"
                         (click)="setFeedback(3)">
-                    <img class="img-fluid"
+                    <img  class="img-fluid"
                          style="max-width:100%; height:auto;"
                          src="../../../content/images/carotsaver-fine.jpg">
                 </button>
