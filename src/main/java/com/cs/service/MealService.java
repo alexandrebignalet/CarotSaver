@@ -63,6 +63,13 @@ public interface MealService {
     List<Meal> findByCreatedDateBetween(Instant startDate, Instant endDate);
 
     /**
+     *  Get meal by date.
+     *
+     *  @return the entity
+     */
+    Meal findMealByCreatedDate(Instant date);
+
+    /**
      *  Get the "id" meal.
      *
      *  @param id the id of the entity

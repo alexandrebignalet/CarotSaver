@@ -1,18 +1,14 @@
 
 <div class="row">
-    <div class="col-4">
-        <div class="row">
-            <div class="col">
-                <h2>Menu creation</h2>
-            </div>
-        </div>
+    <div class="col-6">
         <form (ngSubmit)="onSubmit()" #menuForm="ngForm">
             <div class="form-group">
                 <label for="principal">Entrée</label>
                 <div class="input-group">
                     <select class="form-control" name="entreeSelect"
                             id="entree"
-                            [(ngModel)]="selectedEntree">
+                            [(ngModel)]="selectedEntree"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let entree of entrees;" [value]="entree.id">{{entree.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -24,11 +20,12 @@
             </div>
 
             <div class="form-group">
-                <label for="principal">Entrée</label>
+                <label for="principal">Plat</label>
                 <div class="input-group">
                     <select class="form-control" name="principalSelect"
                             id="principal"
-                            [(ngModel)]="selectedPrincipal">
+                            [(ngModel)]="selectedPrincipal"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let principal of principals" [value]="principal.id">{{principal.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -44,7 +41,8 @@
                 <div class="input-group">
                     <select class="form-control" name="dessertSelect"
                             id="dessert"
-                            [(ngModel)]="selectedDessert">
+                            [(ngModel)]="selectedDessert"
+                            (ngModelChange)="test($event)">
                         <option *ngFor="let dessert of desserts" [value]="dessert.id">{{dessert.name}}</option>
                     </select>
                     <div class="input-group-append">
@@ -55,18 +53,25 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <div class="form-group">
+                <label for="principal">Autre</label>
+                <div class="input-group">
+                    <select class="form-control" name="dessertOther"
+                            id="others"
+                            [(ngModel)]="selectedOther"
+                            (ngModelChange)="test($event)">
+                        <option *ngFor="let other of others" [value]="other.id">{{other.name}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text" id="btnGroupAddon4">
+                            <button type="button" (click)="showForm('other')" class="btn btn-round btn-outline-success float-right">  <i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="col-4" *ngIf="showDishForm">
-        <div class="row">
-            <div class="col">
-                <h2>Add {{ dishType }}
-                    <button (click)="closeForm()" class="btn btn-sm btn-round btn-outline float-right">  <i class="fa fa-times" aria-hidden="true"></i></button>
-
-                </h2>
-            </div>
-        </div>
+    <div class="col-6" *ngIf="showDishForm">
         <form (ngSubmit)="onSubmitDishForm()" #dishForm="ngForm">
             <div class="form-group">
                 <label class="form-control-label" for="field_name">Name</label>
@@ -75,7 +80,7 @@
             </div>
 
             <div class="form-group">
-                <label for="field_foodCategories">Food Categories</label>
+                <label for="field_foodCategories">Catégorie du plat</label>
                 <angular2-multiselect name="foodCategory" id="field_foodCategories" [data]="foodcategories" [(ngModel)]="dish.foodCategories" [settings]="dropdownSettings" >
                     <c-item>
                         <ng-template let-item="item">
@@ -84,7 +89,7 @@
                     </c-item>
                 </angular2-multiselect>
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Ajouter</button>
         </form>
     </div>
 </div>

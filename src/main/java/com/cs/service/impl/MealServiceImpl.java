@@ -106,6 +106,17 @@ public class MealServiceImpl implements MealService {
     }
 
     /**
+     *  Get the meal.
+     *
+     *  @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Meal findMealByCreatedDate(Instant date) {
+        return this.mealRepository.findMealByCreatedDate(date);
+    }
+
+    /**
      *  Get one meal by id.
      *
      *  @param id the id of the entity

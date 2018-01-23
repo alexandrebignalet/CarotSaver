@@ -8,20 +8,24 @@ import { NgModel } from '@angular/forms';
     selector: 'survey-item',
     templateUrl: './survey-item.component.html',
     styleUrls: [
-        
+
     ]
 
 })
 export class SurveyItemComponent implements OnInit{
     @Input() surveyItem: SurveyItem;
-    
+
+    class1:any;
+    class2:any;
+    class3:any;
+
     constructor(){
 
     }
 
     ngOnInit(){
-        
-    } 
+
+    }
 
     onSelectionChange(item): void {
         this.surveyItem.quantityRate = item;
@@ -29,11 +33,33 @@ export class SurveyItemComponent implements OnInit{
 
     setFeedback(item): void {
         let img = this.getImage(item);
-        let icon = document.getElementById(this.surveyItem.name);
+
+        this.setActive(item);
+
+        /*let icon = document.getElementById(this.surveyItem.name);
         icon.setAttribute("style", "max-width:100%; height:auto;");
         icon.setAttribute("class", "img-thumbnail");
         icon.setAttribute("src", "content/" + img + ".jpg");
+        */console.log(item);
         this.surveyItem.qualityRate = item;
+    }
+
+    setActive(item) {
+        if( item == 1) {
+            this.class1 = "border-success";
+            this.class2 = "border-light";
+            this.class3 = "border-light";
+        }
+        if( item == 2) {
+            this.class1 = "border-light";
+            this.class2 = "border-success";
+            this.class3 = "border-light";
+        }
+        if( item == 3) {
+            this.class1 = "border-light";
+            this.class2 = "border-light";
+            this.class3 = "border-success";
+        }
     }
 
     private getImage(nb: number): string{

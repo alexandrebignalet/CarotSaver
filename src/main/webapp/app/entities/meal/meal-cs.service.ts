@@ -58,6 +58,15 @@ export class MealCsService {
             .map((res: Response) => this.convertResponse(res));
     }
 
+    findByCreatedDate(date) : Observable<MealCs> {
+
+        return this.http.get(`${this.resourceUrl}/date/${date}`).map((res: Response) => {
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
+        });
+
+    }
+
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
